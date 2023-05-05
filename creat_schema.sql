@@ -34,13 +34,17 @@ create table if not exists authors
 create table if not exists book_author
 (
     author_id int not null,
-    ISBN      int not null
+    ISBN      int not null,
+    constraint book_author_Book_ISBN_fk
+        foreign key (ISBN) references Book (ISBN)
 );
 
 create table if not exists book_category
 (
     category_id int not null,
-    ISBN        int not null
+    ISBN        int not null,
+    constraint book_category_Book_ISBN_fk
+        foreign key (ISBN) references Book (ISBN)
 );
 
 create table if not exists category
@@ -57,11 +61,10 @@ create table if not exists inventory
     ISBN           int not null,
     `inventory-id` int not null
         primary key,
-    `school-id`    int not null
+    `school-id`    int not null,
+    constraint inventory_Book_ISBN_fk
+        foreign key (ISBN) references Book (ISBN)
 );
-
-create index inventory_Book_ISBN_fk
-    on inventory (ISBN);
 
 create table if not exists operator
 (
@@ -89,7 +92,10 @@ create table if not exists reservation
     username         varchar(255) not null,
     reservation_date datetime     not null,
     expiration_date  datetime     not null,
-    `return-date`    datetime     not null
+    `return-date`    datetime     not null,
+    ISBN             int          null,
+    constraint reservation_Book_ISBN_fk
+        foreign key (ISBN) references Book (ISBN)
 );
 
 create table if not exists user
