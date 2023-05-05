@@ -1,6 +1,6 @@
 -- auto-generated definition
 create schema lab collate utf8_general_ci;
-
+USE lab;
 create table if not exists Book
 (
     ISBN          int          not null
