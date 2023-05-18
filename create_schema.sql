@@ -45,6 +45,7 @@ create table inventory
     inventory_id int not null
         primary key,
     school_id    int not null,
+    available       enum ('yes', 'no') not null,
     constraint inventory_Book_ISBN_fk
         foreign key (ISBN) references Book (ISBN),
     constraint inventory_School_unit_school_id_fk
