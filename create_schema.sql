@@ -38,6 +38,17 @@ create table Book
     constraint `Book_language_language-id_fk`
         foreign key (language_id) references language (language_id)
 );
+create table inventory
+(
+    ISBN         int not null,
+    inventory_id int not null
+        primary key,
+    school_id    int not null,
+    constraint inventory_Book_ISBN_fk
+        foreign key (ISBN) references Book (ISBN),
+    constraint inventory_School_unit_school_id_fk
+        foreign key (school_id) references School_unit (school_id)
+);
 
 create table book_author
 (
@@ -83,18 +94,6 @@ create table School_unit
         unique (operator_id),
     constraint School_unit_operator_operator_id_fk
         foreign key (operator_id) references operator (operator_id)
-);
-
-create table inventory
-(
-    ISBN         int not null,
-    inventory_id int not null
-        primary key,
-    school_id    int not null,
-    constraint inventory_Book_ISBN_fk
-        foreign key (ISBN) references Book (ISBN),
-    constraint inventory_School_unit_school_id_fk
-        foreign key (school_id) references School_unit (school_id)
 );
 
 create table user
