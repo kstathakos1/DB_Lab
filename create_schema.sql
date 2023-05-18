@@ -38,6 +38,7 @@ create table Book
     constraint `Book_language_language-id_fk`
         foreign key (language_id) references language (language_id)
 );
+
 create table inventory
 (
     ISBN         int not null,
@@ -141,3 +142,15 @@ create table reservation
         foreign key (username) references user (username)
 );
 
+CREATE VIEW operator_user_info AS
+SELECT 
+    username,
+    first_name,
+    last_name,
+    address,
+    email,
+    phone_number,
+    school_id,
+    status,
+    CASE WHEN status = 'operator' THEN NULL ELSE password END AS password
+FROM user;
