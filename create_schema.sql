@@ -1,19 +1,6 @@
+drop schema  if exists lab;
 create schema lab collate utf8_general_ci;
 use lab;
-create table school_unit
-(
-    school_id             int                                                             not null
-        primary key,
-    school_number         int                                                             null,
-    school_type           enum ('Elementary of', 'Junior Highschool of', 'Highschool of') null,
-    city                  char(255)                                                       null,
-    school_mail           char(255)                                                       not null,
-    address               char(255)                                                       null,
-    telephone             char(255)                                                       null,
-    Headmaster_first_name char(255)                                                       null,
-    Headmaster_last_name  char(255)                                                       null
-);
-
 create table author
 (
     authors_id        int       not null
@@ -60,9 +47,9 @@ create table book_author
     authors_id int not null,
     ISBN       int not null,
     constraint book_author_Book_ISBN_fk
-        foreign key (ISBN) references Book (ISBN),
+        foreign key (ISBN) references book (ISBN),
     constraint book_author_authors_authors_id_fk
-        foreign key (authors_id) references authors (authors_id)
+        foreign key (authors_id) references author (authors_id)
 )
     collate = utf8mb4_unicode_ci;
 
@@ -71,11 +58,25 @@ create table book_category
     category_id int not null,
     ISBN        int not null,
     constraint book_category_Book_ISBN_fk
-        foreign key (ISBN) references Book (ISBN),
+        foreign key (ISBN) references book (ISBN),
     constraint book_category_category_category_id_fk
         foreign key (category_id) references category (category_id)
 )
     collate = utf8mb4_unicode_ci;
+
+create table school_unit
+(
+    school_id             int                                                             not null
+        primary key,
+    school_number         int                                                             null,
+    school_type           enum ('Elementary of', 'Junior Highschool of', 'Highschool of') null,
+    city                  char(255)                                                       null,
+    school_mail           char(255)                                                       not null,
+    address               char(255)                                                       null,
+    telephone             char(255)                                                       null,
+    Headmaster_first_name char(255)                                                       null,
+    Headmaster_last_name  char(255)                                                       null
+);
 
 create table inventory
 (
@@ -84,28 +85,28 @@ create table inventory
         primary key,
     school_id    int not null,
     constraint `inventory._School_unit_school_id_fk`
-        foreign key (school_id) references School_unit (school_id),
+        foreign key (school_id) references school_unit (school_id),
     constraint inventory_Book_ISBN_fk
-        foreign key (ISBN) references Book (ISBN)
+        foreign key (ISBN) references book (ISBN)
 )
     collate = utf8mb4_unicode_ci;
 
 create table user
 (
-    username     varchar(255)                                     not null
+    username     varchar(255)                                             not null
         primary key,
-    password     varchar(255)                                     not null,
-    first_name   char(255)                                        not null,
-    last_name    char(255)                                        not null,
-    address      varchar(255)                                     not null,
-    email        varchar(255)                                     not null,
-    status       enum ('student', 'teacher', 'operator', 'admin') not null,
-    phone_number char(255)                                        not null,
-    school_id    int                                              null,
+    password     varchar(255)                                             not null,
+    first_name   char(255)                                                not null,
+    last_name    char(255)                                                not null,
+    address      varchar(255)                                             not null,
+    email        varchar(255)                                             not null,
+    status       enum ('student', 'teacher', 'operator', 'admin', 'user') not null,
+    phone_number char(255)                                                not null,
+    school_id    int                                                      null,
     constraint `user._pk`
         unique (username),
     constraint user_School_unit_school_id_fk
-        foreign key (school_id) references School_unit (school_id)
+        foreign key (school_id) references school_unit (school_id)
 )
     collate = utf8mb4_unicode_ci;
 
@@ -134,7 +135,7 @@ create table reservation
     expiration_date  datetime     not null,
     ISBN             int          null,
     constraint reservation_Book_ISBN_fk
-        foreign key (ISBN) references Book (ISBN),
+        foreign key (ISBN) references book (ISBN),
     constraint reservation_user_username_fk
         foreign key (username) references user (username)
 )
@@ -149,14 +150,11 @@ create table review
     review       varchar(255) not null,
     ISBN         int          null,
     constraint review_Book_ISBN_fk
-        foreign key (ISBN) references Book (ISBN),
+        foreign key (ISBN) references book (ISBN),
     constraint review_user_username_fk
         foreign key (username) references user (username)
 )
     collate = utf8mb4_unicode_ci;
-
-
-
 
 
 CREATE VIEW operator_user_info AS
