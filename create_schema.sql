@@ -1,3 +1,5 @@
+create schema lab collate utf8_general_ci;
+use lab;
 create table School_unit
 (
     school_id             int                                                    not null
