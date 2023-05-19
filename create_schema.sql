@@ -1,6 +1,6 @@
 create schema lab collate utf8_general_ci;
 use lab;
-create table School_unit
+create table school_unit
 (
     school_id             int                                                             not null
         primary key,
@@ -14,7 +14,7 @@ create table School_unit
     Headmaster_last_name  char(255)                                                       null
 );
 
-create table authors
+create table author
 (
     authors_id        int       not null
         primary key,
@@ -40,11 +40,11 @@ create table language
         unique (language)
 );
 
-create table Book
+create table book
 (
     ISBN        int          not null
         primary key,
-    Title       char(255)    null,
+    title       char(255)    null,
     image       char(255)    null,
     publisher   char(255)    null,
     page        int          null,
@@ -92,16 +92,16 @@ create table inventory
 
 create table user
 (
-    username     varchar(255)                       not null
+    username     varchar(255)                                     not null
         primary key,
-    password     varchar(255)                       not null,
-    first_name   char(255)                          not null,
-    last_name    char(255)                          not null,
-    address      varchar(255)                       not null,
-    email        varchar(255)                       not null,
-    status       enum ('user', 'operator', 'admin') not null,
-    phone_number char(255)                          not null,
-    school_id    int                                null,
+    password     varchar(255)                                     not null,
+    first_name   char(255)                                        not null,
+    last_name    char(255)                                        not null,
+    address      varchar(255)                                     not null,
+    email        varchar(255)                                     not null,
+    status       enum ('student', 'teacher', 'operator', 'admin') not null,
+    phone_number char(255)                                        not null,
+    school_id    int                                              null,
     constraint `user._pk`
         unique (username),
     constraint user_School_unit_school_id_fk
@@ -109,7 +109,7 @@ create table user
 )
     collate = utf8mb4_unicode_ci;
 
-create table rentals
+create table rental
 (
     rental_id            int          not null
         primary key,
