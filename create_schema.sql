@@ -3,7 +3,7 @@ create table School_unit
     school_id             int                                                    not null
         primary key,
     school_number         int                                                    null,
-    school_type           enum ('Elementary', 'Junior Highschool', 'Highschool') null,
+    school_type           enum ('Elementary of', 'Junior Highschool of ', 'Highschool of') null,
     city                  char(255)                                              null,
     school_mail           char(255)                                              not null,
     address               char(255)                                              null,
