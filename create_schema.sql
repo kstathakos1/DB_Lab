@@ -98,17 +98,20 @@ create table user
     password     varchar(255)                                             not null,
     first_name   char(255)                                                not null,
     last_name    char(255)                                                not null,
+    birth_date   date                                                     null,
     address      varchar(255)                                             not null,
     email        varchar(255)                                             not null,
     status       enum ('student', 'teacher', 'operator', 'admin', 'user') not null,
     phone_number char(255)                                                not null,
     school_id    int                                                      null,
-    constraint `user._pk`
+    constraint user_pk
         unique (username),
     constraint user_School_unit_school_id_fk
         foreign key (school_id) references school_unit (school_id)
 )
     collate = utf8mb4_unicode_ci;
+
+
 
 create table rental
 (
