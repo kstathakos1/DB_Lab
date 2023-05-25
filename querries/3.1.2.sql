@@ -1,23 +1,17 @@
-create
-definer = root@localhostprocedure procedure author_categorization (IN id INT)
-    BEGIN
-        SELECT author.authors_fist_name, author.authors_last_name
-        from author
-            inner join book_author ba on author.authors_id = ba.authors_id
-            inner join book_category bc on ba.ISBN = bc.ISBN
-            inner join category  on bc.category_id = category.category_id
-        where category.category_id = id;
-end;
 
-create procedure teacher_book_category_loan(IN arg1 int)
-begin
-    select concat(first_name,' ',last_name) AS 'Name'
-        from user u
-            inner join rental r ON u.username = r.username
-    inner join inventory i ON r.inventory_id = i.inventory_id
-    inner join book_category bc on i.ISBN=bc.ISBN
-    inner join category c on bc.category_id = c.category_id
-    where c.category_id=arg1 and (u.status='teacher' or u.status='operator');
+-- Id must be replaced with the respective category identifier when creating the function
+SELECT DISTINCT author.authors_first_name, author.authors_last_name
+FROM author
+    INNER JOIN book_author ba ON author.authors_id = ba.authors_id
+    INNER JOIN book_category bc ON ba.ISBN = bc.ISBN
+    INNER JOIN category  ON bc.category_id = category.category_id
+WHERE category.category_id = id;
 
-end;
-;
+SELECT concat(first_name,' ',last_name) AS 'Name'
+    FROM user u
+        INNER JOIN rental r ON u.username = r.username
+INNER JOIN inventory i ON r.inventory_id = i.inventory_id
+INNER JOIN book_category bc ON i.ISBN=bc.ISBN
+INNER JOIN category c ON bc.category_id = c.category_id
+WHERE c.category_id = id AND (u.status='teacher' OR u.status='operator');
+
