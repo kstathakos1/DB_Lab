@@ -5,7 +5,7 @@ create table author
 (
     authors_id        int       not null
         primary key,
-    authors_fist_name char(255) not null,
+    authors_first_name char(255) not null,
     authors_last_name char(255) not null
 );
 
