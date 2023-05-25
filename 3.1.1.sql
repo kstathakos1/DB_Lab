@@ -20,4 +20,15 @@ BEGIN
         AND (month_param IS NULL OR MONTH(r.rental_date) = month_param)
     GROUP BY rps.school_id;
 END;
+-- 3.1.2
+create
+definer = root@localhostprocedure procedure author_categorization (IN id INT)
+    BEGIN
+        SELECT author.authors_fist_name, author.authors_last_name
+        from author
+            inner join book_author ba on author.authors_id = ba.authors_id
+            inner join book_category bc on ba.ISBN = bc.ISBN
+            inner join category  on bc.category_id = category.category_id
+        where category.category_id = id;
+end;
 

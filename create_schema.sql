@@ -44,7 +44,7 @@ create table book
 
 create table book_author
 (
-    authors_id int not null,
+    authors_id int not null AUTO_INCREMENT,
     ISBN       int not null,
     constraint book_author_Book_ISBN_fk
         foreign key (ISBN) references book (ISBN),
