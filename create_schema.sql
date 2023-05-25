@@ -166,6 +166,5 @@ SELECT
     email,
     phone_number,
     school_id,
-    status,
-    CASE WHEN status = 'operator' THEN NULL ELSE password END AS password
+    status
 FROM user;
