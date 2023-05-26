@@ -4,7 +4,7 @@ CREATE TEMPORARY TABLE rentals_per_year (
     SELECT count(*) AS number, school_id, YEAR(rental_date) 
     FROM rental r INNER JOIN user u ON u.username=r.username 
     GROUP by school_id, YEAR(rental_date) 
-    HAVING number > 2
+    HAVING number > 20
 );
 
 SELECT number, group_concat(CONCAT( first_name, ' ', last_name ) separator ', ') AS operator_names
