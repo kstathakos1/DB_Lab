@@ -12,7 +12,7 @@ inner join book_author ba on cps.ISBN = ba.ISBN
 inner join author a on a.authors_id = ba.authors_id
 inner join book_category bc on ba.ISBN = bc.ISBN
 inner join category c on c.category_id = bc.category_id
-where (title is null or title=cps.title)
+where (title is null or locate(title,cps.title))
 AND (category is null or bc.category_id=category)
 AND (author is null or a.authors_id=author)
 AND (copies is null or copies=cps.copies)
