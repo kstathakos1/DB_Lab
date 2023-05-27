@@ -5,7 +5,7 @@ FROM book b
 join inventory i on b.ISBN = i.ISBN
 group by i.ISBN,i.school_id;
 
-create procedure book_search(IN title char(255),IN category int,IN author int,IN copies int,IN school int)
+create procedure book_search_op(IN title char(255),IN category int,IN author int,IN copies int,IN school int)
 SELECT cps.title,group_concat(concat(a.authors_first_name,' ',a.authors_last_name) separator ', ') as authors_name
 FROM copies_per_school cps
 inner join book_author ba on cps.ISBN = ba.ISBN
