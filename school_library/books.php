@@ -6,7 +6,7 @@
 
     $conn = getDb();
 
-    $result = $conn->query("SELECT c.ISBN, title, publisher FROM book LEFT JOIN book_category c ON c.ISBN=book.ISBN");
+    $result = $conn->query("SELECT image, ISBN, title, publisher FROM book;");
 
 ?>
 
@@ -37,12 +37,21 @@
             <p class="lead mt3">There are no books</p>
         <?php endif; ?>
         
-        <?php foreach($result as $item): ?>
-            <div style="margin-left: 10%;" class = "card my-3 w-75">
-            <div class = "card-body text-left">
-                <?php echo $item['title'] ?>
-                <div style="font-size: 10px;"> <?php echo $item['publisher'] ?></div>
-            </div>
+        <?php foreach($result as $item): 
+            $isbn = $item['ISBN'];?>
+            <div style="display: flex; flex-direction: row; margin-left: 10%;" class = "card my-3 w-75">
+                    <div class = "card-body text-left">
+                        <img
+                            src="<?= $item['image'] ?>"
+                            vspace="20"
+                            hspace="10"
+                            width="70"
+                        >
+                        <div style="display: inline-block; flex-direction: column;">
+                            <a style="color: black;" href="book.php?ISBN=<?=$isbn?>"><?php echo $item['title'] ?></a>
+                            <div style="font-size: 10px;"> <?php echo $item['publisher'] ?></div>
+                        </div>
+                    </div>
             </div>
         <?php endforeach; ?>
     </body>
