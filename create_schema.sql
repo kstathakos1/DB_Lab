@@ -132,8 +132,8 @@ create table reservation
     reservation_id   int auto_increment
         primary key,
     username         varchar(255) not null,
-    reservation_date datetime     not null,
-    expiration_date  datetime     not null,
+    reservation_date datetime     null,
+    expiration_date  datetime     null,
     ISBN             int          null,
     constraint reservation_book_ISBN_fk
         foreign key (ISBN) references book (ISBN),
