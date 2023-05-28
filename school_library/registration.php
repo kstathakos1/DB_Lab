@@ -1,9 +1,12 @@
 
 <?php
-
+include ('config/database.php');
   if (!isset($_SERVER["HTTP_USER_AGENT"])) {
     die;
   }
+  $query="Select concat(school_number,' ',school_type,' ',city) from school_unit";
+  $conn=getDb();
+  $result1=mysqli_query($conn,$query);
 
 ?>
 
@@ -144,16 +147,13 @@
                     </div>
 
                     <div class="form-outline mb-2" style="margin-left: 20%; margin-right: 20%;">
-                      <input
-                        type="text"
-                        autocomplete="off"
-                        id="school_id"
-                        placeholder="School ID"
-                        name='school_id'
-                        class="form-control form-control-lg align-self-center"
-                        value=""
-                        required="required"
-                      />
+                      <select name="school" class="form-control" id="school">
+                          <?php while ($row1=mysqli_fetch_array($result1)):;?>
+                          <option>
+                              <?php echo $row1[0];?>
+                          </option>
+                          <?php endwhile;?>
+                      </select>
                     </div>
 
                     <div class="form-check" style="margin-left: 40%; margin-right: 40%;">

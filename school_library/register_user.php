@@ -1,7 +1,9 @@
 <?php
 
     include ('config/database.php');
-
+    $conn = getDb();
+    $schoolname=$_POST['school'];
+    $query="select school_name('$schoolname') as schoolid limit 1";
     $username = $_POST['username'];
     $password = $_POST['password'];
     $first_name = $_POST['first_name'];
@@ -11,9 +13,12 @@
     $email = $_POST['email'];
     $status = ($_POST['status'] == 'teacher') ? 'teacher' : 'student';
     $phone_number = $_POST['phone_number'];
-    $school_id = $_POST['school_id'];
+    $school_result = mysqli_query($conn,$query);
+    $schoolid1= mysqli_fetch_assoc($school_result);
+    $school_id=$schoolid1["schoolid"];
+echo $school_id;
 
-    $conn = getDb();
+
 
     $sql = "INSERT INTO user (
         username, 
