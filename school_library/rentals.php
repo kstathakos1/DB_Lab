@@ -6,7 +6,7 @@
 
     $conn = getDb();
 
-    $result = $conn->query("SELECT c.ISBN, title, publisher FROM book LEFT JOIN book_category c ON c.ISBN=book.ISBN");
+    $result = $conn->query("CALL find_my_books('$username')");
 
 ?>
 
@@ -25,23 +25,22 @@
       <script src="js/jquery-ui.js"></script>
 
       <link rel="shortcut icon" href="library.jpg" type="image/x-icon">
-      <title>Books</title>
+      <title>Rentals</title>
 
     </head>
     <body>
         <?php include ('navbar.php');?>
 
-        <h4 style="margin-top: 5%; margin-left: 10%;">Books List</h4>
+        <h4 style="margin-top: 5%; margin-left: 10%;">Rentals List</h4>
 
         <?php if(empty($result)): ?>
-            <p class="lead mt3">There are no books</p>
+            <p class="lead mt3">There are no rentals</p>
         <?php endif; ?>
         
         <?php foreach($result as $item): ?>
             <div style="margin-left: 10%;" class = "card my-3 w-75">
-            <div class = "card-body text-left">
+            <div class = "card-body text-center">
                 <?php echo $item['title'] ?>
-                <div style="font-size: 10px;"> <?php echo $item['publisher'] ?></div>
             </div>
             </div>
         <?php endforeach; ?>

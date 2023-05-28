@@ -7,9 +7,6 @@
 
 
   session_start();
-  if (empty($_SESSION['token'])) {
-    $_SESSION['token'] = bin2hex(random_bytes(32));
-  }
 
 ?>
 
@@ -52,7 +49,7 @@
                         id="username"
                         placeholder="username"
                         name='username'
-                        class="form-control form-control-lg align-self-center"
+                        class="form-control align-self-center"
                         value=""
                         required="required"
                       />
@@ -65,14 +62,14 @@
                         id="password"
                         placeholder="password"
                         name='password'
-                        class="form-control form-control-lg"
+                        class="form-control align-self-center"
                         value=""
                         required="required"
                       />
                     </div>
 
                     <button
-                      class="btn btn-secondary btn-lg btn-block"
+                      class="btn btn-secondary btn-lg btn-dark"
                       type="submit"
                     >
                       Login

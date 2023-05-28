@@ -5,12 +5,6 @@
     die;
   }
 
-
-  session_start();
-  if (empty($_SESSION['token'])) {
-    $_SESSION['token'] = bin2hex(random_bytes(32));
-  }
-
 ?>
 
 <html>
@@ -28,14 +22,14 @@
       <script src="js/jquery-ui.js"></script>
 
       <link rel="shortcut icon" href="library.jpg" type="image/x-icon">
-      <title>Login</title>
+      <title>Register</title>
 
     </head>
     <body>
         <div class="container" style="border-radius: 1rem; background-color: #DDD9D2; margin-top: 1%;">
           <div class="row d-flex justify-content-center align-items-center">
             <div class="col-xl-5">
-              <div class="card shadow-2-strong" style="border-radius: 2rem; margin-top: 5%; margin-bottom: 5%; text-align: center;"> 
+              <div class="card" style="border-radius: 2rem; margin-top: 5%; margin-bottom: 5%; text-align: center;"> 
                 <div class="card-body text-center">
                   <img
                     src="library.jpg"
@@ -187,7 +181,7 @@
                     </div>
 
                     <button style="margin-top:2%"
-                      class="btn btn-secondary btn-lg btn-block"
+                      class="btn btn-secondary btn-lg btn-dark"
                       type="submit"
                     >
                       Register

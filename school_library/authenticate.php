@@ -5,7 +5,7 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    var_dump($password . ' ' . $username);
+    if (!isset($_SESSION)) session_start();
 
     $conn = getDb();
 
@@ -17,6 +17,7 @@
     if (count($user) == 0) {
         header("Location: login.php?wrongCredentials=true");
     } else {
+        $_SESSION['username'] = $username;
         header("Location: books.php?username=$username");
     }
 
