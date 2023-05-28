@@ -51,12 +51,18 @@
             <?php } ?>
         </div>
 
+        <form id="reservation" method="POST" action="reserve.php" autocomplete="on">
             <button
                 class="btn btn-secondary btn-lg btn-dark button-position"
-                type=""
+                type="submit"
             >
                 Reserve
             </button>
+            <input type="hidden" id="username" name="username" value="<?=$username?>" />
+            <input type="hidden" id="ISBN" name="ISBN" value="<?=$bookIsbn?>"/>
+        </form>
+
+            
 
 
     </body>
