@@ -77,6 +77,8 @@
                     >
                       Login
                     </button>
+
+                    <div style="font-size: 15px; margin-top: 4px;"><a href="registration.php">New user? Please register.</a></div>
                   </form>
                 </div>
               </div>
