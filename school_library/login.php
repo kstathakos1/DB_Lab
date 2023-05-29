@@ -31,8 +31,8 @@
     <body>
         <div class="container" style="border-radius: 1rem; background-color: #DDD9D2; margin-top: 3.5%;">
           <div class="row d-flex justify-content-center align-items-center">
-            <div class="col-xl-5">
-              <div class="card shadow-2-strong" style="border-radius: 1rem; margin-top: 20%; margin-bottom: 20%; text-align: center;"> 
+            <div class="col-xl-5" >
+              <div class="card shadow-2-strong" style="border-radius: 1rem; margin-top: 30%; margin-bottom: 20%; text-align: center;">
                 <div class="card-body text-center">
                   <img
                     src="library.jpg"
