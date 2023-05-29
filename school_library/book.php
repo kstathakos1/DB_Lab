@@ -11,7 +11,13 @@ $book = $conn->query("SELECT summary, page, image, title, ISBN FROM book WHERE I
 $author = $conn->query("SELECT distinct  concat(authors_first_name,' ',authors_last_name) as name
 FROM author_name_book
 where ISBN=$bookIsbn ;");
+$category=$conn->query("SELECT *
+FROM book_category bc
+inner join category c on bc.category_id = c.category_id
+where bc.ISBN=$bookIsbn;");
 $author1 = mysqli_fetch_assoc($author);
+
+
 
 ?>
 
@@ -52,17 +58,18 @@ $author1 = mysqli_fetch_assoc($author);
             <div class="book_half">
                 <div class='bold'> Summary:</div>
                 <div> <?= $result['summary'] ?> </div>
-                <div class="bold" style="margin-top: 10px">Athors</div>
+                <div class="bold" style="margin-top: 10px">Athors:</div>
 
                 <?php foreach ($author as $item):
                     $author_name = $item['name']; ?>
-                    <div >
-
-                        <div class=>
-                            <a style="color: black;"
-                               href="authors.php?=<?= $item['name'] ?>"><?php echo $item['name'] ?></a>
-                        </div>
-                    </div>
+                    <a style="color: black;"
+                       href="author.php?=<?= $item['name'] ?>"><?php echo $item['name'] ?></a>
+                <?php endforeach; ?>
+                <div class="bold" style="margin-top: 10px">Category:</div>
+                <?php foreach ($category as $item):
+                    $author_name = $item['category']; ?>
+                    <a style="color: black;"
+                       href="category.php?=<?= $item['category'] ?>"><?php echo $item['category'] ?></a>
                 <?php endforeach; ?>
             </div>
         </div>
