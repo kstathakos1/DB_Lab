@@ -52,7 +52,7 @@ input:focus {
     font-family:Book Antiqua;
   }
 
-<<<<<<< Updated upstream
+
 .teacher_or_student{
 display: flex;
     margin-right: 0%;
@@ -147,7 +147,7 @@ display: flex;
 }
 .form_check_inline{
     display:inline-block;margin-right:1rem}
-=======
+
 .button-position {
     position:absolute;
     bottom: 15%;
