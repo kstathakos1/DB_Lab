@@ -1,6 +1,7 @@
 <?php include 'config/database.php' ?>
 
 <?php
+$conn=getDb();
     $sql = 'SELECT * FROM author';
     $result = mysqli_query($conn, $sql);
     $author = mysqli_fetch_all($result, MYSQLI_ASSOC);

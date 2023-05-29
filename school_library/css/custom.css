@@ -153,3 +153,24 @@ display: flex;
     bottom: 15%;
     right:20%;
 }
+
+.book_page{
+	overflow: auto;
+    display: flex;
+    align-items: flex-start;
+}
+.book_half{
+	width: 50%;
+	display: inline-block;
+    justify-content: center;
+    margin-left: 10px;
+}
+.book_half_image{
+    align-items: flex-start;
+    width: 30%;
+}
+
+.align_next{
+    overflow: auto;
+    display: flex;
+}
