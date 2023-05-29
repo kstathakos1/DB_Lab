@@ -3,10 +3,15 @@
 
     if (!isset($_SESSION)) session_start();
     $username= $_SESSION['username'];
-
     $conn = getDb();
-
-    $result = $conn->query("SELECT image, ISBN, title, publisher FROM book;");
+    $sql="SELECT * FROM user where username='$username' limit 1";
+    $result1=$conn->query($sql);
+    $row=mysqli_fetch_array($result1);
+    $school_id=$row['school_id'];
+    $result = $conn->query("SELECT image, ISBN, title, publisher 
+                                    FROM copies_per_school
+                                    where school_id=$school_id
+;");
 
 ?>
 
