@@ -29,7 +29,7 @@ include ('config/database.php');
 
     </head>
     <body>
-        <div class="container" style="border-radius: 1rem; background-color: #DDD9D2; margin-top: 1%;">
+        <div class="container" id="background" style="border-radius: 0.5rem; background-color: #DDD9D2; margin-top: 1%;">
           <div class="row d-flex justify-content-center align-items-center">
             <div class="col-xl-5">
               <div class="card" style="border-radius: 2rem; margin-top: 5%; margin-bottom: 5%; text-align: center;"> 
@@ -155,42 +155,42 @@ include ('config/database.php');
                           <?php endwhile;?>
                       </select>
                     </div>
+                      <div class="teacher_or_student">
+                          <div class="form-check" >
+                              <label class="form-check-label" for="flexCheckDefault">
+                                  student
+                              </label>
+                              <input class="form_check_input"
+                                     type="radio"
+                                     value="student"
+                                     id="student"
+                                     name="status"
+                              />
 
-                    <div class="form-check" style="margin-left: 40%; margin-right: 40%;">
-                      <input class="form-check-input" 
-                        type="radio" 
-                        value="student" 
-                        id="student"
-                        name="status"
-                      />
-                      <label class="form-check-label" for="flexCheckDefault">
-                                student
-                      </label>
-                    </div>
+                          </div>
+                          <div class="form-check" >
+                              <label class="form-check-label" for="flexCheckDefault">
+                                  teacher
+                              </label>
+                              <input class="form_check_input"
+                                     type="radio"
+                                     value="teacher"
+                                     id="teacher"
+                                     name="status"/>
 
-                    <div class="form-check" style="margin-left: 40%; margin-right: 40%;">
-                      <input class="form-check-input" 
-                        type="radio" 
-                        value="teacher" 
-                        id="teacher"
-                        name="status"
-                      />
-                      <label class="form-check-label" for="flexCheckDefault">
-                                teacher
-                      </label>
-                    </div>
-
-                    <button style="margin-top:2%"
-                      class="btn btn-secondary btn-lg btn-dark"
-                      type="submit"
-                    >
-                      Register
-                    </button>
+                          </div>
+                      </div>
+                      <button style="margin-top:2%"
+                              class="btn btn-secondary btn-lg btn-dark"
+                              type="submit"
+                      >
+                          Register
+                      </button>
                   </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
-  </body>
+    </body>
 </html>
