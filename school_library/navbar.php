@@ -4,9 +4,9 @@
 
 <nav class="navbar navbar-light" style="background-color: #DDD9D2;">
     <div class="navbar-header" style= "justify-content:start; display: flex; flex-direction: row;">
-      <a class="navbar-brand nav-head left-spaced" href="index.php">School Library</a>
-      <a class="navbar-brand nav-head" href="books.php">Books</a>
-      <a class="navbar-brand nav-head" href="rentals.php">Rentals</a>
+      <a class="navbar-brand nav-head left-spaced" href="index.php" ><img src="library-PhotoRoom.png-PhotoRoom.png" rel="shortcut icon" width="50" height="50" style="margin-top: 0;"></a>
+      <a class="navbar-brand nav-head" href="books.php" style="margin-top: 10px">Books</a>
+      <a class="navbar-brand nav-head" href="rentals.php" style="margin-top: 10px">Rentals</a>
     </div>
 
     <div class="navbar-end justify-content:end;">
@@ -16,6 +16,12 @@
         </button>
         <ul class="dropdown-menu text-center" style="min-width: 100%;">
           <li>
+              <form action="profile-redirect.php" method="POST" style="all: unset; cursor: pointer;">
+                  <button
+                          name="profile"
+                          style="all: unset; cursor: pointer;"
+                  > Profile
+                  </button></form>
             <form action="logout.php" method="POST" style="all: unset; cursor: pointer;">
               <button
                 name="logout"
