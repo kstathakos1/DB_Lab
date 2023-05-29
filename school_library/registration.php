@@ -29,10 +29,10 @@ include ('config/database.php');
 
     </head>
     <body>
-        <div class="container" id="background" style="border-radius: 0.5rem; background-color: #DDD9D2; margin-top: 1%;">
+        <div class="container" id="background" >
           <div class="row d-flex justify-content-center align-items-center">
             <div class="col-xl-5">
-              <div class="card" style="border-radius: 2rem; margin-top: 5%; margin-bottom: 5%; text-align: center;"> 
+              <div class="card" style="border-radius: 2rem; margin-top: 5%; margin-bottom: 5%; text-align: center;">
                 <div class="card-body text-center">
                   <img
                     src="library.jpg"
