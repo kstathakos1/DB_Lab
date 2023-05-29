@@ -10,14 +10,17 @@
     $conn = getDb();
 
     $sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
-    
+    $school_q="SELECT school_id as id FROM user WHERE username='$username'";
     $result = mysqli_query($conn, $sql);
+    $school=$conn->query($school_q);
+    $school=mysqli_fetch_array($school);
     $user = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     if (count($user) == 0) {
-        header("Location: login.php?wrongCredentials=true");
+      header("Location: login.php?wrongCredentials=true");
     } else {
         $_SESSION['username'] = $username;
+        $_SESSION['id']=$school['id'];
         header("Location: books.php?username=$username");
     }
 

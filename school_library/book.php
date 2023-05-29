@@ -7,15 +7,15 @@ $bookIsbn = $_GET['ISBN'];
 
 $conn = getDb();
 
-$book = $conn->query("SELECT summary, page, image, title, ISBN FROM book WHERE ISBN=$bookIsbn");
-$author = $conn->query("SELECT distinct  concat(authors_first_name,' ',authors_last_name) as name
-FROM author_name_book
-where ISBN=$bookIsbn ;");
+$book = $conn->query("SELECT * FROM book WHERE ISBN=$bookIsbn");
+$author = $conn->query("    SELECT distinct  concat(authors_first_name,' ',authors_last_name) as name
+                                     FROM author_name_book
+                                        where ISBN=$bookIsbn ;");
 $category=$conn->query("SELECT *
-FROM book_category bc
-inner join category c on bc.category_id = c.category_id
-where bc.ISBN=$bookIsbn;");
-$author1 = mysqli_fetch_assoc($author);
+                                FROM book_category bc
+                                inner join category c on bc.category_id = c.category_id
+                                where bc.ISBN=$bookIsbn;");
+
 
 
 
@@ -63,13 +63,19 @@ $author1 = mysqli_fetch_assoc($author);
                 <?php foreach ($author as $item):
                     $author_name = $item['name']; ?>
                     <a style="color: black;"
-                       href="author.php?=<?= $item['name'] ?>"><?php echo $item['name'] ?></a>
+                       href="author.php?author=<?= $item['name'] ?>"><?php echo $item['name'] ?></a>
                 <?php endforeach; ?>
                 <div class="bold" style="margin-top: 10px">Category:</div>
                 <?php foreach ($category as $item):
-                    $author_name = $item['category']; ?>
+                    $category1 = $item['category']; ?>
                     <a style="color: black;"
-                       href="category.php?=<?= $item['category'] ?>"><?php echo $item['category'] ?></a>
+                       href="category.php?category=<?= $item['category'] ?>"><?php echo $item['category'] ?></a>
+                <?php endforeach; ?>
+                <div class="bold" style="margin-top: 10px">Publisher:</div>
+                <?php foreach ($book as $item):
+                    $publisher = $item['publisher']; ?>
+                    <a style="color: black;"
+                       href="publisher.php?publisher=<?= $item['publisher'] ?>"><?php echo $item['publisher'] ?></a>
                 <?php endforeach; ?>
             </div>
         </div>
