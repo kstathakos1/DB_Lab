@@ -35,7 +35,7 @@ if ($_SESSION['username'] == null)
                             </button>
                         </form>
                     <?php } ?>
-                    <form action="logout.php" method="POST" style="all: unset; cursor: pointer;">
+                    <form action="../logout.php" method="POST" style="all: unset; cursor: pointer;">
                         <button
                                 name="logout"
                                 style="all: unset; cursor: pointer;"

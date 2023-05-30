@@ -4,7 +4,8 @@ include ('config/database.php');
   if (!isset($_SERVER["HTTP_USER_AGENT"])) {
     die;
   }
-  $query="Select concat(school_number,' ',school_type,' ',city) from school_unit";
+  $query="select if(school_number>0,concat(school_number,' ',school_type,' ',city),concat(school_type,' ',city)) as name
+from school_unit;";
   $conn=getDb();
   $result1=mysqli_query($conn,$query);
 
