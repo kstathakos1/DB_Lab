@@ -1,9 +1,9 @@
 create view copies_per_school
 as
-SELECT b.title,b.ISBN,i.school_id, count(inventory_id) as copies
-FROM book b
-join inventory i on b.ISBN = i.ISBN
-group by i.ISBN,i.school_id;
+    select b.title,b.ISBN,b.image,b.publisher,i.school_id,count(i.inventory_id) as copies
+        from book b
+inner join inventory i on b.ISBN = i.ISBN
+group by b.ISBN,i.school_id;
 
 create procedure book_search_op(IN title char(255),IN category int,IN author int,IN copies int,IN school int)
 SELECT cps.title,group_concat(concat(a.authors_first_name,' ',a.authors_last_name) separator ', ') as authors_name
