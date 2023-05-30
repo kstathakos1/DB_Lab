@@ -8,11 +8,20 @@ input:focus {
     top: 0;
     z-index: 100;
 }
-
+.table1{
+    width: 100%;
+}
 .container {
     width: 70%;
     height: 80%;
+    justify-content: center;
+    align-items: center;
+
 }
+.centered-table{
+    text-align: center;
+}
+
 #background.container{
     width: 70%;
     height: 85%;
@@ -20,6 +29,7 @@ input:focus {
     background-color: #DDD9D2;
     margin-top: 1%;
     margin-bottom: 1%;
+
 }
 
 #main-body {

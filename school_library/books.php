@@ -51,7 +51,9 @@
                             width="70"
                         >
                         <div style="display: inline-block; flex-direction: column;">
-                            <a style="color: black;" href="book.php?ISBN=<?=$isbn?>"><?php echo $item['title'] ?></a>
+                            <a style="color: black;" href="book.php?ISBN=<?=$isbn?>">
+                                <?php echo $item['title'] ?>
+                            </a>
                             <div style="font-size: 10px;"> <?php echo $item['publisher'] ?></div>
                         </div>
                     </div>

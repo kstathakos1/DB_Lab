@@ -14,70 +14,60 @@
 
     <link rel="shortcut icon" href="../library.jpg" type="image/x-icon">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>My Rents</title>
+    <?php
+    include('../config/database.php');
+
+    if (!isset($_SESSION)) session_start();
+    $username = $_SESSION['username'];
+    $conn = getDb();
+    $result = $conn->query("select b.title as title, b.ISBN as ISBN, r.rental_date as rental_date , r.expected_return_date as expected_return_date,r.actual_return_date as actual_return_date
+from rental r
+inner join inventory i on r.inventory_id = i.inventory_id
+inner join book b on i.ISBN = b.ISBN
+where username='$username' order by actual_return_date;");
+$text='Expected to be returned';
+
+    ?>
 </head>
 <body>
+<?php include ('navbar.php') ?>
+<div class="container" id="background">
+    <div class="row">
+        <div class="centered-table">
+            <table class="table table1" style="margin-top: 2%">
+                <thead class="thead-dark" >
+                <tr>
+                    <th scope="col">Book</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Rent Date</th>
+                    <th scope="col">Expected Return Date</th>
+                    <th scope="col">Actual Return Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php while ($rental = mysqli_fetch_assoc($result)) { ?>
+                    <tr>
+                        <td><a style="color: black;" href="../book.php?ISBN=<?=$rental['ISBN']?>"><?php echo $rental['title'] ?></a></td>
+                        <td><?php echo $rental['ISBN']; ?></td>
+                        <td><?php echo $rental['rental_date']; ?></td>
+                        <td><?php echo $rental['expected_return_date']; ?></td>
+                        <td><?php
+                            if ($rental['actual_return_date']!=null)
+                                echo $rental['actual_return_date'];
+                            else
+                                echo $text;
+                        ?></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-    </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-    </tr>
-    <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-    </tr>
-    </tbody>
-</table>
 
-<table class="table">
-    <thead class="thead-light">
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-    </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-    </tr>
-    <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-    </tr>
-    </tbody>
-</table>
+
+
 </body>
 </html>

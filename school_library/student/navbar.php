@@ -4,6 +4,7 @@ $status = $_SESSION['status'];
 if ($_SESSION['username'] == null)
     header("Location: login.php");
 ?>
+<link rel="stylesheet" type="text/css" href="../css/custom.css?<?= time() ?>">
 <nav class="navbar navbar-light" style="background-color: #DDD9D2;" ¬>
     <div class="navbar-header" style="justify-content:start; display: flex; flex-direction: row;">
         <a class="navbar-brand nav-head left-spaced" href="../index.php"><img
