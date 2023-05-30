@@ -32,7 +32,8 @@
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col-xl-5" >
             <div class="card shadow-2-strong" style="border-radius: 1rem; margin-top: 30%; margin-bottom: 20%; text-align: center;">
-                <?php if (isset($_GET['wrongCredentials'])) echo '<div class="alert alert-danger text-center" role="alert"> Wrong credentials. Please try again.</div>' ?>
+                <div class="card-body text-center">
+                <?php if (isset($_GET['wrongCredentials'])) echo '<div class="alert alert-danger text-center" role="alert"> Passwords do not match.</div>' ?>
                     <form id="loginform" method="POST" action="conpasschange.php" autocomplete="on" style="margin-top: 10%">
                         <div class="form-outline mb-4" style="margin-left: 20%; margin-right: 20%;">
                             <input
@@ -80,7 +81,7 @@
                         </button>
 
 
-                    </form>
+                    </form></div>
                 </div>
             </div>
         </div>
