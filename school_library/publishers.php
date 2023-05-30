@@ -5,11 +5,10 @@ if (!isset($_SESSION)) session_start();
 $username= $_SESSION['username'];
 $sc=$_SESSION['id'];
 $conn = getDb();
-$result = $conn->query("select distinct concat(authors_first_name,' ',authors_last_name) as name
-from author_name_book anb
-inner join inventory i on anb.inventory_id = i.inventory_id
-where i.school_id=$sc
-order by name
+$result = $conn->query("select distinct cps.publisher
+from copies_per_school cps
+where school_id=$sc
+order by publisher
 ;");
 
 ?>
@@ -29,25 +28,24 @@ order by name
     <script src="js/jquery-ui.js"></script>
 
     <link rel="shortcut icon" href="library.jpg" type="image/x-icon">
-    <title>Authors</title>
+    <title>Publishers</title>
 
 </head>
 <body>
 <?php include ('navbar.php');?>
 
-<h4 style="margin-top: 5%; margin-left: 10%;">Author List</h4>
+<h4 style="margin-top: 5%; margin-left: 10%;">Publishers List</h4>
 
 <?php if(empty($result)): ?>
     <p class="lead mt3">There are no books</p>
 <?php endif; ?>
 
 <?php foreach($result as $item):
-    $name = $item['name'];?>
+    $name = $item['publisher'];?>
     <div style="display: flex; flex-direction: row; margin-left: 10%;" class = "card my-3 w-75">
         <div class = "card-body text-left">
             <div style="display: inline-block; flex-direction: column;">
-                <a style="color: black;" href="author.php?author=<?=$name?>"><?php echo $item['name'] ?></a>
-
+                <a style="color: black;" href="publisher.php?publisher=<?=$name?>"><?php echo $name ?></a>
             </div>
         </div>
     </div>

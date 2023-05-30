@@ -8,6 +8,7 @@
     $result = $conn->query("SELECT image, ISBN, title, publisher 
                                     FROM copies_per_school
                                     where school_id=$sc
+                                    order by title
 ;");
 
 ?>
