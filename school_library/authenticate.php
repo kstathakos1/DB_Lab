@@ -14,13 +14,15 @@
     $result = mysqli_query($conn, $sql);
     $school=$conn->query($school_q);
     $school=mysqli_fetch_array($school);
-    $user = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
     if (count($user) == 0) {
       header("Location: login.php?wrongCredentials=true");
     } else {
         $_SESSION['username'] = $username;
         $_SESSION['id']=$school['id'];
+        $_SESSION['status']=$user['status'];
+
         header("Location: books.php?username=$username");
     }
 

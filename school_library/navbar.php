@@ -1,5 +1,8 @@
 <?php
 if (!isset($_SESSION)) session_start();
+$status=$_SESSION['status'];
+if ($_SESSION['username']==null)
+    header("Location: login.php");
 ?>
 
 <nav class="navbar navbar-light" style="background-color: #DDD9D2;" ¬>
@@ -21,13 +24,24 @@ if (!isset($_SESSION)) session_start();
             </button>
             <ul class="dropdown-menu text-center" style="min-width: 100%;">
                 <li>
-                    <form action="profile-redirect.php" method="POST" style="all: unset; cursor: pointer;">
+                    <form action="profile-redirect.php"  style="all: unset; cursor: pointer;">
                         <button
                                 name="profile"
                                 style="all: unset; cursor: pointer;"
                         > Profile
                         </button>
                     </form>
+                    <?php if ($status != 'student') {
+                        ?>
+                        <form action="profile-redirect.php" style="all: unset; cursor: pointer;">
+                            <button
+                                    name="profile"
+                                    style="all: unset; cursor: pointer;"
+                            > Tools
+                            </button>
+                        </form>
+                    <?php } ?>
+
                     <form action="logout.php" method="POST" style="all: unset; cursor: pointer;">
                         <button
                                 name="logout"
