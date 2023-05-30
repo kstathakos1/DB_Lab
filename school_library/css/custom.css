@@ -3,6 +3,11 @@ input:focus {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px grey !important;
     outline: 0 none !important;
 }
+.navbar{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
 .container {
     width: 70%;

@@ -31,7 +31,7 @@ if ($_SESSION['username']==null)
                         > Profile
                         </button>
                     </form>
-                    <?php if ($status != 'student') {
+                    <?php if ($status != 'student' AND $status!='teacher') {
                         ?>
                         <form action="profile-redirect.php" style="all: unset; cursor: pointer;">
                             <button

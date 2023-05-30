@@ -7,13 +7,12 @@ $user=$_SESSION['status'];
 $conn = getDb();
 
 if ($user=='teacher') {
-    header("Location: teacher\login.php?wrongCredentials=true");
+    header("Location: teacher\profile.php");
 } else if ($user=='student'){
-    echo 'hello';
-    header("Location: good\login.php?wrongCredentials=true");
+    header("Location: student\profile.php");
 } else if ($user=='operator'){
-    header("Location: login.php?wrongCredentials=true");
+    header("Location: teacher\profile.php");
 } else
-    header("Location: login.php?wrongCredentials=true");
+    header("Location: teacher\profile.php");
 
 ?>
