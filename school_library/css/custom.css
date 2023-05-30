@@ -3,28 +3,33 @@ input:focus {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px grey !important;
     outline: 0 none !important;
 }
-
-container {
+.navbar{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.table1{
     width: 100%;
-    height: 100%
+}
+.container {
+    width: 70%;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+
+}
+.centered-table{
+    text-align: center;
 }
 
-select:focus {   
-    border-color: #888888 !important;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px grey !important;
-    outline: 0 none !important;
-}
+#background.container{
+    width: 70%;
+    height: 85%;
+    border-radius: 0.5rem;
+    background-color: #DDD9D2;
+    margin-top: 1%;
+    margin-bottom: 1%;
 
-h1 {
-    color: grey;
-}
-
-h2 {
-    color: grey;
-}
-
-h4 {
-    color: grey;
 }
 
 #main-body {
@@ -38,220 +43,15 @@ h4 {
 }
 
 .left-spaced {
-    margin-left: 5px;
-}
-
-.background-div:hover >  *:not(.imageButtons){
-    backdrop-filter: blur(2px);
-    filter: blur(2px);
-    transition: 0.1s ease;
+    margin-left: 5%;
 }
 
 
-::-webkit-input-placeholder {
-    text-align: center;
-}
 
-:-moz-placeholder
-/* Firefox 18- */
-
-{
-    text-align: center;
-}
-
-::-moz-placeholder
-/* Firefox 19+ */
-
-{
-    text-align: center;
-}
-
-:-ms-input-placeholder {
-    text-align: center;
-}
-
-
-/* Firefox old*/
-
-@-moz-keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    49% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@-webkit-keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    49% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-
-/* IE */
-
-@-ms-keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-
-/* Opera and prob css3 final iteration */
-
-@keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-.blink {
-    -moz-animation: blink normal 1s infinite ease-in-out;
-    /* Firefox */
-    -webkit-animation: blink normal 1s infinite ease-in-out;
-    /* Webkit */
-    -ms-animation: blink normal 1s infinite ease-in-out;
-    /* IE */
-    animation: blink normal 1s infinite ease-in-out;
-    /* Opera and prob css3 final iteration */
-}
-
-
-/* unvisited link */
-
-a:link {
-    text-decoration: none;
-}
-
-
-/* visited link */
-a:visited {
-    text-decoration: none;
-}
-
-/* mouse over link */
-a:hover {
-    text-decoration: none;
-}
-
-/* selected link */
-a:active {
-    text-decoration: none;
-}
-
-/* selected link */
-a:active.dropdown-item {
-    background-color: grey !important;
-    text-decoration: none;
-}
-
-.custom-progress {
-    position: fixed;
-    text-align: center;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* Sit on top of the page content */
-    display: none;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999 !important;
-}
-
-.spinner {
-    position: fixed;
-    text-align: center;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* Sit on top of the page content */
-    display: flex;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-}
-
-.overlay {
-    position: fixed; /* Sit on top of the page content */
-    display: none; /* Hidden by default */
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.5);
-    z-index: 2;
-}
-
-.bg-image {
-    /* The image used */
-    background-image: url("../pics/logo_large.png");
-  
-    /* Add the blur effect */
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-  
-    /* Full height */
-    height: 100%;
-  
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
 .btn-sm.btn-close {
     width: 1px;
     height: 1px;
-}
-  /* Position text in the middle of the page/image */
-.bg-text {
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
-    color: white;
-    font-weight: bold;
-    border: 3px solid #f1f1f1;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    width: 80%;
-    padding: 20px;
-    text-align: center;
 }
 
 .bold {
@@ -259,10 +59,133 @@ a:active.dropdown-item {
 }
 
 ::placeholder {
-    opacity: 0.5 !important;
+    opacity: 0.5;
 }
 
-a.disabled {
-    pointer-events: none;
-    opacity: 0.6;
+.nav-head {
+    font-size: 25px;
+    font-family:Book Antiqua;
+  }
+
+
+.teacher_or_student{
+display: flex;
+    margin-right: 0%;
+    margin-left: 12.5%;
+
+}
+
+.form-check{
+    width: 40%;
+    display: inline-grid;
+    outline: none;
+}
+.form_check_input:focus{
+    outline: none;
+}
+
+.form-check{
+    display:block;min-height:1.5rem;padding-left:1.5em;margin-bottom:.125rem
+}
+
+.form_check_input{
+    width:1em;
+    height:1em;
+    margin-top:.25em;
+    vertical-align:top;
+    background-color:#fff;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:contain;
+    border:1px solid rgba(0,0,0,.25);
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    -webkit-print-color-adjust:exact;
+    color-adjust:exact;
+}
+.form_check_input[type=checkbox]{
+    border-radius:.25em
+}
+.form_check_input[type=radio]{
+    border-radius:50%
+}.form_check_input:active {
+     filter:brightness(90%)
+ }
+.form_check_input:focus {
+    border-color:#86b7fe;
+    outline:0;
+    box-shadow:0 0 0 .25rem rgba(13,110,253,.25)
+}
+.form_check_input:checked{
+    background-color:#0d6efd;
+    border-color:#0d6efd
+}.form_check_input:checked[type=checkbox]{
+     background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e")
+ }
+.form_check_input:checked[type=radio]{
+    background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e")
+}
+.form_check_input[type=checkbox]:indeterminate{
+    background-color:#0d6efd;
+    border-color:#0d6efd;
+    background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e")
+}
+.form_check_input:disabled{
+    pointer-events:none;
+    filter:none;
+    opacity:.5
+}
+.form_check_input:disabled~.form-check-label,.form_check_input[disabled]~.form-check-label{
+    opacity:.5
+}
+.form-switch{
+    padding-left:2.5em
+}
+.form-switch .form_check_input{
+    width:2em;
+    margin-left:-2.5em;
+    background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
+    background-position:left center;
+    border-radius:2em;
+    transition:background-position .15s ease-in-out}@media (prefers-reduced-motion:reduce){
+    .form-switch .form_check_input{
+        transition:none
+    }
+}
+.form-switch .form_check_input:focus{
+    background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%2386b7fe'/%3e%3c/svg%3e")
+}
+.form-switch .form_check_input:checked{
+    background-position:right center;
+    background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e")
+}
+.form_check_inline{
+    display:inline-block;margin-right:1rem}
+
+.button-position {
+    position:absolute;
+    bottom: 15%;
+    right:20%;
+}
+
+.book_page{
+	overflow: auto;
+    display: flex;
+    align-items: flex-start;
+}
+.book_half{
+	width: 50%;
+	display: inline-block;
+    justify-content: center;
+    margin-left: 10px;
+}
+.book_half_image{
+    align-items: flex-start;
+    width: 30%;
+}
+
+.align_next{
+    overflow: auto;
+    display: flex;
 }

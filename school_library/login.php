@@ -7,9 +7,6 @@
 
 
   session_start();
-  if (empty($_SESSION['token'])) {
-    $_SESSION['token'] = bin2hex(random_bytes(32));
-  }
 
 ?>
 
@@ -20,10 +17,10 @@
       <link rel="stylesheet" type="text/css" href="css/custom.css?<?=time()?>">
       <link rel="stylesheet" href="css/fontawesome.min.css">
       <link rel="stylesheet" href="css/all.min.css">
-      <link rel="stylesheet" href="css/jquery-ui.css">
 
       <script src="js/jquery.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="css/jquery-ui.css">
       <script src="js/jquery-1.10.2.js"></script>
       <script src="js/jquery-ui.js"></script>
 
@@ -32,10 +29,10 @@
 
     </head>
     <body>
-        <div class="container" style="border-radius: 1rem; background-color: #e2e3e5; margin-top: 7%;">
+        <div class="container" style="border-radius: 1rem; background-color: #DDD9D2; margin-top: 3.5%;">
           <div class="row d-flex justify-content-center align-items-center">
-            <div class="col-xl-5">
-              <div class="card shadow-2-strong" style="border-radius: 1rem; margin-top: 20%; margin-bottom: 20%; text-align: center;"> 
+            <div class="col-xl-5" >
+              <div class="card shadow-2-strong" style="border-radius: 1rem; margin-top: 30%; margin-bottom: 20%; text-align: center;">
                 <div class="card-body text-center">
                   <img
                     src="library.jpg"
@@ -45,7 +42,6 @@
                   >
                   <?php if (isset($_GET['wrongCredentials'])) echo '<div class="alert alert-danger text-center" role="alert"> Wrong credentials. Please try again.</div>' ?>
                   <form id="loginform" method="POST" action="authenticate.php" autocomplete="on">
-                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['token'] ?>"/>
                     <div class="form-outline mb-4" style="margin-left: 20%; margin-right: 20%;">
                       <input
                         type="text"
@@ -53,7 +49,7 @@
                         id="username"
                         placeholder="username"
                         name='username'
-                        class="form-control form-control-lg align-self-center"
+                        class="form-control align-self-center"
                         value=""
                         required="required"
                       />
@@ -66,18 +62,20 @@
                         id="password"
                         placeholder="password"
                         name='password'
-                        class="form-control form-control-lg"
+                        class="form-control align-self-center"
                         value=""
                         required="required"
                       />
                     </div>
 
                     <button
-                      class="btn btn-secondary btn-lg btn-block"
+                      class="btn btn-secondary btn-lg btn-dark"
                       type="submit"
                     >
                       Login
                     </button>
+
+                    <div style="font-size: 15px; margin-top: 4px;"><a href="registration.php">New user? Please register.</a></div>
                   </form>
                 </div>
               </div>
