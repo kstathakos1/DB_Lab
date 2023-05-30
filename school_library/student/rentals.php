@@ -21,11 +21,7 @@
     if (!isset($_SESSION)) session_start();
     $username = $_SESSION['username'];
     $conn = getDb();
-    $result = $conn->query("select b.title as title, b.ISBN as ISBN, r.rental_date as rental_date , r.expected_return_date as expected_return_date,r.actual_return_date as actual_return_date
-from rental r
-inner join inventory i on r.inventory_id = i.inventory_id
-inner join book b on i.ISBN = b.ISBN
-where username='$username' order by actual_return_date;");
+    $result = $conn->query("call find_my_books('$username')");
 $text='Expected to be returned';
 
     ?>
