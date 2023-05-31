@@ -203,5 +203,3 @@ BEGIN
     WHERE u.username=p_username;
 END$$
 DELIMITER ;
-
-call find_my_books('KK');
