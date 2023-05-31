@@ -1,18 +1,18 @@
+use lab;
 drop view if exists rentals_per_school;
 create view rentals_per_school as
-select `lab`.`inventory`.`school_id`       AS `school_id`,
-       `lab`.`rental`.`rental_id`          AS `rental_id`,
-       `lab`.`school_unit`.`school_number` AS `school_number`,
-       `lab`.`school_unit`.`school_type`   AS `school_type`,
-       `lab`.`school_unit`.`city`          AS `city`
-from ((`lab`.`school_unit` join `lab`.`inventory`
-       on ((`lab`.`school_unit`.`school_id` = `lab`.`inventory`.`school_id`))) join `lab`.`rental`
-      on ((`lab`.`inventory`.`inventory_id` = `lab`.`rental`.`inventory_id`)));
+select inventory.school_id      AS school_id,
+       rental.rental_id          AS rental_id,
+       school_unit.school_number AS school_number,
+       school_unit.school_type   AS school_type,
+       school_unit.city          AS city
+from ((school_unit join inventory
+       on ((school_unit.school_id = inventory.school_id))) join rental
+      on ((inventory.inventory_id = rental.inventory_id)));
 
 drop procedure if exists list_loans_by_school;
 create
     definer = root@localhost procedure list_loans_by_school(IN year_param int, IN month_param int)
-BEGIN
     SELECT concat( rps.school_number,' ', rps.school_type, ' ', rps.city) AS 'School Name',
            COUNT(r.rental_id) AS 'number of loans'
     FROM RENTALS_PER_SCHOOL rps
@@ -20,13 +20,13 @@ BEGIN
     WHERE (year_param IS NULL OR YEAR(r.rental_date) = year_param)
         AND (month_param IS NULL OR MONTH(r.rental_date) = month_param)
     GROUP BY rps.school_id;
-END;
+
 
 
 drop procedure if exists teacher_book_category_loan;
 create
     definer = root@localhost procedure teacher_book_category_loan(IN arg1 int)
-begin
+
     select distinct concat(first_name,' ',last_name) AS 'Name'
         from user u
             inner join rental r ON u.username = r.username
@@ -35,19 +35,15 @@ begin
     inner join category c on bc.category_id = c.category_id
     where c.category_id=arg1 and (u.status='teacher' or u.status='operator');
 
-end;
-
 drop procedure if exists author_categorization;
-create
-    definer = root@localhost procedure author_categorization(IN id int)
-BEGIN
+create procedure author_categorization(IN id int)
         SELECT distinct author.authors_first_name, author.authors_last_name
         from author
             inner join book_author ba on author.authors_id = ba.authors_id
             inner join book_category bc on ba.ISBN = bc.ISBN
             inner join category  on bc.category_id = category.category_id
         where category.category_id = id;
-end;
+
 
 
 # SELECT concat(u.first_name,' ',u.last_name) AS Name_teacher, count(r.rental_id) as Number_rented_Books
@@ -142,7 +138,6 @@ group by cps.title
 drop procedure if exists out_of_date_borrowers;
 DELIMITER $$
 CREATE PROCEDURE out_of_date_borrowers (IN first_name CHAR(255), IN last_name CHAR(255), IN days_out INT,IN school int)
-BEGIN
     SELECT CONCAT(u.last_name, ' ', u.first_name) AS 'Borrower, out of date',
     DATEDIFF(NOW(), r.expected_return_date) AS 'delaying_time'
     FROM user u
@@ -154,9 +149,8 @@ BEGIN
     AND (u.last_name = last_name OR last_name IS NULL OR last_name = '')
     AND (u.school_id=school)
     GROUP BY u.last_name, u.first_name;
-END$$
 DELIMITER ;
-
+DELIMITER $$
 drop procedure if exists avarage_review;
 create
     definer = root@localhost procedure avarage_review(IN username char(255), IN category int)
@@ -165,8 +159,9 @@ FROM review r
 inner join book_category bc on r.ISBN = bc.ISBN
 where (username is null or username=r.username) AND (category is null or category=bc.category_id)
 group by username,category;
+DELIMITER ;
 
-
+DELIMITER $$
 drop function if exists routine_name;
 create
     definer = root@localhost function routine_name(arg1 varchar(255)) returns int deterministic
@@ -177,7 +172,8 @@ begin
            where concat(authors_first_name,' ',authors_last_name)=arg1;
     return au;
     end;
-
+DELIMITER ;
+DELIMITER $$
 drop procedure if exists book_search_user;
 create procedure book_search_user(IN title varchar(255),IN category char(255),IN author varchar(255) ,IN school int)
     SELECT distinct b.title
@@ -190,9 +186,9 @@ inner join inventory i on b.ISBN = i.ISBN
 where (title is null or locate(title,b.title))
   AND (category is null or category=c.category)
   AND (author is null or a.authors_id=routine_name(author))
-AND (school=i.school_id)
+AND (school=i.school_id);
+DELIMITER ;
 
-;
 
 drop procedure if exists find_my_books;
 DELIMITER $$
@@ -208,36 +204,36 @@ END$$
 DELIMITER ;
 drop view if exists author_name_book;
 create view author_name_book as
-select `lab`.`author`.`authors_first_name` AS `authors_first_name`,
-       `lab`.`author`.`authors_last_name`  AS `authors_last_name`,
-       `i`.`ISBN`                          AS `ISBN`,
-       `ba`.`authors_id`                   AS `authors_id`,
-       `i`.`inventory_id`                  AS `inventory_id`
-from ((`lab`.`author` join `lab`.`book_author` `ba`
-       on ((`lab`.`author`.`authors_id` = `ba`.`authors_id`))) join `lab`.`inventory` `i`
-      on ((`ba`.`ISBN` = `i`.`ISBN`)));
+select author.authors_first_name AS authors_first_name,
+       author.authors_last_name  AS authors_last_name,
+       i.ISBN                          AS ISBN,
+       ba.authors_id                   AS authors_id,
+       i.inventory_id                  AS inventory_id
+from ((author join book_author ba
+       on ((author.authors_id = ba.authors_id))) join inventory i
+      on ((ba.ISBN = i.ISBN)));
 
 drop view if exists not_rented;
 create view not_rented as
-select `lab`.`inventory`.`inventory_id` AS `inventory_id`, `lab`.`inventory`.`ISBN` AS `ISBN`
-from `lab`.`inventory`
+select inventory_id AS inventory_id, ISBN AS ISBN
+from inventory
 where (not (exists(select 1
-                   from `lab`.`rental`
-                   where (`lab`.`rental`.`inventory_id` = `lab`.`inventory`.`inventory_id`))));
+                   from rental
+                   where (rental.inventory_id=inventory.inventory_id))));
 
 
 drop view if exists operator_user_info;
 create view operator_user_info as
-select `lab`.`user`.`username`     AS `username`,
-       `lab`.`user`.`first_name`   AS `first_name`,
-       `lab`.`user`.`last_name`    AS `last_name`,
-       `lab`.`user`.`address`      AS `address`,
-       `lab`.`user`.`email`        AS `email`,
-       `lab`.`user`.`phone_number` AS `phone_number`,
-       `lab`.`user`.`school_id`    AS `school_id`,
-       `lab`.`user`.`status`       AS `status`
-from `lab`.`user`;
-
+select username    AS username,
+       first_name   AS first_name,
+       last_name    AS last_name,
+       address      AS address,
+       email        AS email,
+       phone_number AS phone_number,
+       school_id    AS school_id,
+       status       AS status
+from user;
+DELIMITER $$
 drop function if exists school_name;
 create function school_name(arg1 varchar(255)) returns int
     deterministic
@@ -248,4 +244,5 @@ select school_id into sn
         where arg1=if(school_number!=0, concat(school_number,' ',school_type,' ',city),concat(school_type,' ',city));
     return sn;
 end;
+DELIMITER ;
 
