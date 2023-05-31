@@ -245,7 +245,7 @@ begin
     declare sn int;
 select school_id into sn
     from school_unit
-        where arg1=concat(school_number,' ',school_type,' ',city);
+        where arg1=if(school_number!=0, concat(school_number,' ',school_type,' ',city),concat(school_type,' ',city));
     return sn;
 end;
 
