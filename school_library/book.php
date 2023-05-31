@@ -6,7 +6,6 @@ $username = $_SESSION['username'];
 $bookIsbn = $_GET['ISBN'];
 
 $conn = getDb();
-
 $book = $conn->query("SELECT * FROM book WHERE ISBN=$bookIsbn");
 $author = $conn->query("    SELECT distinct  concat(authors_first_name,' ',authors_last_name) as name
                                      FROM author_name_book
@@ -15,8 +14,6 @@ $category=$conn->query("SELECT *
                                 FROM book_category bc
                                 inner join category c on bc.category_id = c.category_id
                                 where bc.ISBN=$bookIsbn;");
-
-
 
 
 ?>
@@ -88,6 +85,10 @@ $category=$conn->query("SELECT *
     <?php } ?>
 </div>
 
+<?php if (isset($_GET['NotAvailable'])) echo '<div class="alert alert-danger text-center" role="alert"> No available copies right now.</div>' ?>
+<?php if (isset($_GET['LimitedReservations'])) echo '<div class="alert alert-danger text-center" role="alert"> You have already reserved two books this week!</div>' ?>
+<?php if (isset($_GET['Rented'])) echo '<div class="alert alert-danger text-center" role="alert"> You cant reserve a book you are currently renting.</div>' ?>
+<?php if (isset($_GET['NotReturned'])) echo '<div class="alert alert-danger text-center" role="alert"> You have to return your expired book first.</div>' ?>
 <form id="reservation" method="POST" action="reserve.php" autocomplete="on">
     <button
             class="btn btn-secondary btn-lg btn-dark button-position"
