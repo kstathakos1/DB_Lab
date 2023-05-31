@@ -15,8 +15,8 @@
     $phone_number = $_POST['phone_number'];
     $school_result = mysqli_query($conn,$query);
     $schoolid1= mysqli_fetch_assoc($school_result);
-    $school_id=$schoolid1["schoolid"];
 
+    $school_id=$schoolid1["schoolid"];
 
 
 
