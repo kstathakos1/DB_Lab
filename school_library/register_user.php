@@ -16,7 +16,7 @@
     $school_result = mysqli_query($conn,$query);
     $schoolid1= mysqli_fetch_assoc($school_result);
     $school_id=$schoolid1["schoolid"];
-echo $school_id;
+
 
 
 

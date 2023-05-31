@@ -16,7 +16,7 @@
     $school=mysqli_fetch_array($school);
     $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-    if (count($user) == 0) {
+    if ($user==null) {
       header("Location: login.php?wrongCredentials=true");
     } else {
         $_SESSION['username'] = $username;

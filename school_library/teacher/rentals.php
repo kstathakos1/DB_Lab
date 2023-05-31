@@ -22,7 +22,7 @@
     $username = $_SESSION['username'];
     $conn = getDb();
     $result = $conn->query("call find_my_books('$username')");
-    $text='Expected to be returned';
+$text='Expected to be returned';
 
     ?>
 </head>
@@ -40,35 +40,35 @@
                 <div>
                     <h2>You Haven't Rented any Books</h2>
                 </div>
-            <?php }
+                <?php }
             else{?>
-                <table class="table table1" style="margin-top: 0%">
-                    <thead class="thead-dark" >
+            <table class="table table1" style="margin-top: 0%">
+                <thead class="thead-dark" >
+                <tr>
+                    <th scope="col">Book</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Rent Date</th>
+                    <th scope="col">Expected Return Date</th>
+                    <th scope="col">Actual Return Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php while ($rental = mysqli_fetch_assoc($result)) { ?>
                     <tr>
-                        <th scope="col">Book</th>
-                        <th scope="col">ISBN</th>
-                        <th scope="col">Rent Date</th>
-                        <th scope="col">Expected Return Date</th>
-                        <th scope="col">Actual Return Date</th>
+                        <td><a style="color: black;" href="../book.php?ISBN=<?=$rental['ISBN']?>"><?php echo $rental['title'] ?></a></td>
+                        <td><?php echo $rental['ISBN']; ?></td>
+                        <td><?php echo $rental['rental_date']; ?></td>
+                        <td><?php echo $rental['expected_return_date']; ?></td>
+                        <td><?php
+                            if ($rental['actual_return_date']!=null)
+                                echo $rental['actual_return_date'];
+                            else
+                                echo $text;
+                        ?></td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <?php while ($rental = mysqli_fetch_assoc($result)) { ?>
-                        <tr>
-                            <td><a style="color: black;" href="../book.php?ISBN=<?=$rental['ISBN']?>"><?php echo $rental['title'] ?></a></td>
-                            <td><?php echo $rental['ISBN']; ?></td>
-                            <td><?php echo $rental['rental_date']; ?></td>
-                            <td><?php echo $rental['expected_return_date']; ?></td>
-                            <td><?php
-                                if ($rental['actual_return_date']!=null)
-                                    echo $rental['actual_return_date'];
-                                else
-                                    echo $text;
-                                ?></td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
+                <?php } ?>
+                </tbody>
+            </table>
             <?php }?>
         </div>
     </div>
