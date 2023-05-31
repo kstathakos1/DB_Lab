@@ -203,3 +203,46 @@ BEGIN
     WHERE u.username=p_username;
 END$$
 DELIMITER ;
+
+create view author_name_book as
+select `lab`.`author`.`authors_first_name` AS `authors_first_name`,
+       `lab`.`author`.`authors_last_name`  AS `authors_last_name`,
+       `i`.`ISBN`                          AS `ISBN`,
+       `ba`.`authors_id`                   AS `authors_id`,
+       `i`.`inventory_id`                  AS `inventory_id`
+from ((`lab`.`author` join `lab`.`book_author` `ba`
+       on ((`lab`.`author`.`authors_id` = `ba`.`authors_id`))) join `lab`.`inventory` `i`
+      on ((`ba`.`ISBN` = `i`.`ISBN`)));
+
+create view not_rented as
+select `lab`.`inventory`.`inventory_id` AS `inventory_id`, `lab`.`inventory`.`ISBN` AS `ISBN`
+from `lab`.`inventory`
+where (not (exists(select 1
+                   from `lab`.`rental`
+                   where (`lab`.`rental`.`inventory_id` = `lab`.`inventory`.`inventory_id`))));
+
+
+
+create view operator_user_info as
+select `lab`.`user`.`username`     AS `username`,
+       `lab`.`user`.`first_name`   AS `first_name`,
+       `lab`.`user`.`last_name`    AS `last_name`,
+       `lab`.`user`.`address`      AS `address`,
+       `lab`.`user`.`email`        AS `email`,
+       `lab`.`user`.`phone_number` AS `phone_number`,
+       `lab`.`user`.`school_id`    AS `school_id`,
+       `lab`.`user`.`status`       AS `status`
+from `lab`.`user`;
+
+
+
+create function school_name(arg1 varchar(255)) returns int
+    deterministic
+begin
+    declare sn int;
+select school_id into sn
+    from school_unit
+        where arg1=concat(school_number,' ',school_type,' ',city);
+    return sn;
+end;
+
