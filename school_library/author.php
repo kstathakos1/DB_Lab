@@ -8,8 +8,7 @@ $conn = getDb();
 $book = $conn->query("SELECT distinct *
 FROM copies_per_school cps
 inner join book_author ba on cps.ISBN = ba.ISBN
-
-where authors_id=(select routine_name('$author')  and school_id=$school_id)
+where authors_id=(select routine_name('$author') ) and school_id=$school_id
 ;");
 ?>
 

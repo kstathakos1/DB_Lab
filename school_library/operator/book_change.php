@@ -22,7 +22,8 @@ $language = $conn->query("select l.language as language
                                 from book b
                                 inner join language l on b.language_id = l.language_id
                                 where b.ISBN=$bookIsbn;");
-
+$book1=$conn->query("select * from book where ISBN=$bookIsbn");
+$result1=mysqli_fetch_assoc($book1);
 while ($row = mysqli_fetch_assoc($author)) {
     // Append the data to the textarea content
     $c++;
@@ -36,7 +37,7 @@ $c = 0;
 while ($row = mysqli_fetch_assoc($category)) {
     // Append the data to the textarea content
     $c++;
-    if ($c == mysqli_num_rows($author)) {
+    if ($c == mysqli_num_rows($category)) {
         $textareacategory .= $row['category'];
     } else
         $textareacategory .= $row['category'] . ", ";
@@ -72,62 +73,61 @@ $language = mysqli_fetch_assoc($language);
 <!--                align="flex-start"-->
 <!--                vspace="60"-->
 <!--                hspace="15"-->
-<form id="bookchange" method="POST" action="bookchange.php?ISBN=<?=$bookIsbn?>" autocomplete="on">
+<form id="bookchange" method="POST" action="bookchange.php?ISBN=<?=$bookIsbn?>&AUTHOR=<?=$textareaathor?>&CATEGORY=<?=$textareacategory?>&image=<?=$result1['image']?>" autocomplete="on">
     <div style="margin-left: 10%;">
         <?php while ($result = $book->fetch_assoc()) { ?>
 
             <div style="display: flex;">
                 <h4 style="margin-top: 5%; display:flex;">
                     <div>Title :</div>
-                    <textarea name="title" rows="1" cols="35"><?= $result['title'] ?></textarea>
+                    <textarea name="title" rows="1" cols="35"><?=$result['title']?></textarea>
 
 
                 </h4>
             </div>
             <div class="book_page">
-                <img src="<?= $result['image'] ?>" class="book_half_image">
+                <img src="<?=$result['image'] ?>" class="book_half_image">
                 <div class="book_half">
 
                     <div class='bold'> Summary:</div>
                     <div>
-                    <textarea name="summary" rows="2" cols="40" class="w-100 container"><?= $result['summary'] ?>
+                    <textarea name="summary" rows="2" cols="40" class="w-100 container"><?=$result['summary']?>
                         </textarea>
                     </div>
                     <div class="bold" style="margin-top: 10px">Athors:</div>
-                    <textarea name="author" rows="1" cols="40" class="w-50 "><?php echo $textareaathor; ?></textarea>
+                    <textarea name="author" rows="1" cols="40" class="w-50 "><?php echo $textareaathor;?></textarea>
                     <div class="bold" style="margin-top: 10px">Category:</div>
-                    <textarea name="category" rows="1" cols="40" class="w-50"><?= $textareacategory ?></textarea>
+                    <textarea name="category" rows="1" cols="40" class="w-50"><?= $textareacategory?></textarea>
                     <div class="bold" style="margin-top: 10px">Publisher:</div>
-                    <textarea name="publisher" rows="1" cols="40" class="w-50"><?= $result['publisher'] ?></textarea>
+                    <textarea name="publisher" rows="1" cols="40" class="w-50"><?=$result['publisher']?></textarea>
                     <div class="bold" style="margin-top: 10px">Language:</div>
-                    <textarea name="language" rows="1" cols="40" class="w-50"><?= $language['language'] ?></textarea>
+                    <textarea name="language" rows="1" cols="40" class="w-50"><?=$language['language']?></textarea>
 
                 </div>
             </div>
             <div class="align_next">
                 <div class='bold'> ISBN :&nbsp;</div>
                 <div style="padding-left:5.4%"><textarea name="ISBN" rows="1" cols="40" class="w-2"
-                                                         style="text-align: center;"><?= $result['ISBN'] ?> </textarea>
+                                                         style="text-align: center;"><?=$result['ISBN']?></textarea>
                 </div>
 
             </div>
             <div style="display: flex;">
                 <div class="bold"> Number of pages:</div>
                 <div><textarea name="numpage" rows="1" cols="40" class="w-2"
-                               style="text-align: center"><?= $result['page'] ?> </textarea>
+                               style="text-align: center"><?=$result['page']?></textarea>
                 </div>
             </div>
         <?php } ?>
     </div>
 
     <button
-            class="btn btn-outline-dark button-position fas fa-save fa-xl"
+            class="btn btn-outline-dark button-position fas fa-save fa-xl "
             data-bs-auto-close="outside"
     >
         Save Changes
     </button>
-    <input type="hidden" id="username" name="username" value="<?= $username ?>"/>
-    <input type="hidden" id="ISBN" name="ISBN" value="<?= $bookIsbn ?>"/>
+
 </form>
 
 
