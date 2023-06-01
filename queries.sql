@@ -136,8 +136,7 @@ group by cps.title
 ;
 
 drop procedure if exists out_of_date_borrowers;
-
-
+DELIMITER $$
 CREATE PROCEDURE out_of_date_borrowers (IN first_name CHAR(255), IN last_name CHAR(255), IN days_out INT,IN school int)
     SELECT CONCAT(u.last_name, ' ', u.first_name) AS 'Borrower, out of date',
     DATEDIFF(NOW(), r.expected_return_date) AS 'delaying_time'
@@ -150,8 +149,8 @@ CREATE PROCEDURE out_of_date_borrowers (IN first_name CHAR(255), IN last_name CH
     AND (u.last_name = last_name OR last_name IS NULL OR last_name = '')
     AND (u.school_id=school)
     GROUP BY u.last_name, u.first_name;
-    
-
+DELIMITER ;
+DELIMITER $$
 drop procedure if exists avarage_review;
 create
     definer = root@localhost procedure avarage_review(IN username char(255), IN category int)
@@ -160,9 +159,9 @@ FROM review r
 inner join book_category bc on r.ISBN = bc.ISBN
 where (username is null or username=r.username) AND (category is null or category=bc.category_id)
 group by username,category;
+DELIMITER ;
 
-
-
+DELIMITER $$
 drop function if exists routine_name;
 create
     definer = root@localhost function routine_name(arg1 varchar(255)) returns int deterministic
@@ -173,8 +172,8 @@ begin
            where concat(authors_first_name,' ',authors_last_name)=arg1;
     return au;
     end;
-    
-
+DELIMITER ;
+DELIMITER $$
 drop procedure if exists book_search_user;
 create procedure book_search_user(IN title varchar(255),IN category char(255),IN author varchar(255) ,IN school int)
     SELECT distinct b.title
@@ -188,11 +187,11 @@ where (title is null or locate(title,b.title))
   AND (category is null or category=c.category)
   AND (author is null or a.authors_id=routine_name(author))
 AND (school=i.school_id);
-
+DELIMITER ;
 
 
 drop procedure if exists find_my_books;
-
+DELIMITER $$
 CREATE PROCEDURE find_my_books (IN p_username CHAR(255))
 BEGIN
     SELECT b.title,b.ISBN,r.actual_return_date,r.expected_return_date,r.rental_date
@@ -202,7 +201,7 @@ BEGIN
         INNER JOIN user u ON u.username=r.username
     WHERE u.username=p_username;
 END$$
-
+DELIMITER ;
 drop view if exists author_name_book;
 create view author_name_book as
 select author.authors_first_name AS authors_first_name,
@@ -234,7 +233,7 @@ select username    AS username,
        school_id    AS school_id,
        status       AS status
 from user;
-
+DELIMITER $$
 drop function if exists school_name;
 create function school_name(arg1 varchar(255)) returns int
     deterministic
@@ -245,3 +244,27 @@ select school_id into sn
         where arg1=if(school_number!=0, concat(school_number,' ',school_type,' ',city),concat(school_type,' ',city));
     return sn;
 end;
+DELIMITER ;
+
+
+create
+    definer = root@localhost function language_id(arg1 varchar(255)) returns int deterministic
+begin
+    declare id int;
+select  language_id into id
+    from language
+        where arg1=language;
+    return id;
+end;
+
+create
+    definer = root@localhost function category_id(arg1 varchar(255)) returns int deterministic
+begin
+    declare id int;
+select  category_id into id
+    from category
+        where arg1=category;
+    return id;
+end;
+
+

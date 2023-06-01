@@ -61,13 +61,13 @@ insert into lab.author (authors_id, authors_first_name, authors_last_name) value
 insert into lab.author (authors_id, authors_first_name, authors_last_name) values (60, 'Josefa', 'Graham');
 
 -- category insert
-INSERT INTO lab.category (category_id, category) VALUES (8, ' Biography');
-INSERT INTO lab.category (category_id, category) VALUES (5, ' Classical Literature');
-INSERT INTO lab.category (category_id, category) VALUES (6, ' Fantasy');
-INSERT INTO lab.category (category_id, category) VALUES (4, ' Historic');
-INSERT INTO lab.category (category_id, category) VALUES (3, ' Novel');
-INSERT INTO lab.category (category_id, category) VALUES (7, ' Poetry');
-INSERT INTO lab.category (category_id, category) VALUES (2, ' Sci-Fi');
+INSERT INTO lab.category (category_id, category) VALUES (8, 'Biography');
+INSERT INTO lab.category (category_id, category) VALUES (5, 'Classical Literature');
+INSERT INTO lab.category (category_id, category) VALUES (6, 'Fantasy');
+INSERT INTO lab.category (category_id, category) VALUES (4, 'Historic');
+INSERT INTO lab.category (category_id, category) VALUES (3, 'Novel');
+INSERT INTO lab.category (category_id, category) VALUES (7, 'Poetry');
+INSERT INTO lab.category (category_id, category) VALUES (2, 'Sci-Fi');
 INSERT INTO lab.category (category_id, category) VALUES (1, 'Comic');
 
 -- language insert
