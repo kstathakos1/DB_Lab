@@ -4,17 +4,18 @@ include('config/database.php');
 if (!isset($_SESSION)) session_start();
 $username = $_SESSION['username'];
 $bookIsbn = $_GET['ISBN'];
+$status=$_SESSION['status'];
 
 $conn = getDb();
 $book = $conn->query("SELECT * FROM book WHERE ISBN=$bookIsbn");
 $author = $conn->query("    SELECT distinct  concat(authors_first_name,' ',authors_last_name) as name
                                      FROM author_name_book
                                         where ISBN=$bookIsbn ;");
-$category=$conn->query("SELECT *
+$category = $conn->query("SELECT *
                                 FROM book_category bc
                                 inner join category c on bc.category_id = c.category_id
                                 where bc.ISBN=$bookIsbn;");
-$language=$conn->query("select l.language as language
+$language = $conn->query("select l.language as language
                                 from book b
                                 inner join language l on b.language_id = l.language_id
                                 where b.ISBN=$bookIsbn;");
@@ -29,6 +30,7 @@ $language=$conn->query("select l.language as language
     <link rel="stylesheet" type="text/css" href="css/custom.css?<?= time() ?>">
     <link rel="stylesheet" href="css/fontawesome.min.css">
     <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -51,9 +53,18 @@ $language=$conn->query("select l.language as language
 
 <div style="margin-left: 10%;">
     <?php while ($result = $book->fetch_assoc()) { ?>
-        <h4 style="margin-top: 5%;">
-            <div> <?= $result['title'] ?> </div>
-        </h4>
+        <div style="display: flex;">
+            <h4 style="margin-top: 5%; display:flex;">
+                <div> <?= $result['title'] ?> </div>
+            </h4>
+        <?php if ($status=='operator'){?>
+                <a href="operator/book_change.php?ISBN=<?=$bookIsbn?>" style="margin-left: auto;">
+                <button style="padding: 8px 12px; margin-top: 50%; margin-right: 100% ;"
+                        class="btn btn-secondary btn-lg btn-dark "
+                        type="submit"><i class="fas fa-pencil-ruler" style="margin-right: 4px;font-size: 24px;"></i></button></a>
+            <?php } ?>
+
+        </div>
         <div class="book_page">
             <img src="<?= $result['image'] ?>" class="book_half_image">
             <div class="book_half">

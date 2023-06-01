@@ -249,3 +249,14 @@ display: flex;
     }
 }
 
+textarea {
+    border-style: none;
+    border-color: #DDD9D2;
+    overflow: auto;
+    background-color: #DDD9D2;
+    border-radius: 1rem;
+    block-size: auto;
+    resize: none;
+    text-align: left;
+}
+
