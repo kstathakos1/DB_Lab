@@ -28,7 +28,7 @@ if ($_SESSION['username'] == null)
                 <li>
                     <?php if ($status != 'student' and $status != 'teacher') {
                         ?>
-                        <form action="profile-redirect.php" style="all: unset; cursor: pointer;">
+                        <form action="../operator/tools.php" style="all: unset; cursor: pointer;">
                             <button
                                     name="profile"
                                     style="all: unset; cursor: pointer;"
