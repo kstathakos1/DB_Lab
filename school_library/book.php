@@ -14,6 +14,10 @@ $category=$conn->query("SELECT *
                                 FROM book_category bc
                                 inner join category c on bc.category_id = c.category_id
                                 where bc.ISBN=$bookIsbn;");
+$language=$conn->query("select l.language as language
+                                from book b
+                                inner join language l on b.language_id = l.language_id
+                                where b.ISBN=$bookIsbn;");
 
 
 ?>
@@ -73,6 +77,12 @@ $category=$conn->query("SELECT *
                     $publisher = $item['publisher']; ?>
                     <a style="color: black;"
                        href="publisher.php?publisher=<?= $item['publisher'] ?>"><?php echo $item['publisher'] ?></a>
+                <?php endforeach; ?>
+                <div class="bold" style="margin-top: 10px">Language:</div>
+                <?php foreach ($language as $item):
+                    $la = $item['language']; ?>
+                    <a style="color: black;"
+                       href="language.php?language=<?= $la ?>"><?php echo $la ?></a>
                 <?php endforeach; ?>
             </div>
         </div>

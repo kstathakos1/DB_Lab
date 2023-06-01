@@ -14,6 +14,7 @@ if ($_SESSION['username']==null)
         <a class="navbar-brand nav-head" href="authors.php" style="margin-top: 10px">Authors</a>
         <a class="navbar-brand nav-head" href="categories.php" style="margin-top: 10px">Categories</a>
         <a class="navbar-brand nav-head" href="publishers.php" style="margin-top: 10px">Publishers</a>
+        <a class="navbar-brand nav-head" href="languages.php" style="margin-top: 10px">Languages</a>
     </div>
 
     <div class="navbar-end justify-content:end;">
