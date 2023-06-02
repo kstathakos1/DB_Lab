@@ -106,20 +106,48 @@ $language = $conn->query("select l.language as language
     <?php } ?>
 </div>
 
-<?php if (isset($_GET['NotAvailable'])) echo '<div class="alert alert-danger text-center" role="alert"> No available copies right now.</div>' ?>
-<?php if (isset($_GET['LimitedReservations'])) echo '<div class="alert alert-danger text-center" role="alert"> You have already reserved two books this week!</div>' ?>
-<?php if (isset($_GET['Rented'])) echo '<div class="alert alert-danger text-center" role="alert"> You cant reserve a book you are currently renting.</div>' ?>
-<?php if (isset($_GET['NotReturned'])) echo '<div class="alert alert-danger text-center" role="alert"> You have to return your expired book first.</div>' ?>
-<form id="reservation" method="POST" action="reserve.php" autocomplete="on">
-    <button
-            class="btn btn-secondary btn-lg btn-dark button-position"
-            type="submit"
-    >
-        Reserve
-    </button>
-    <input type="hidden" id="username" name="username" value="<?= $username ?>"/>
-    <input type="hidden" id="ISBN" name="ISBN" value="<?= $bookIsbn ?>"/>
-</form>
+<?php 
+     if (isset($_GET['NotAvailable'])) echo '<div class="alert alert-danger text-center" role="alert"> No available copies right now.</div>';
+     if (isset($_GET['LimitedReservations'])) echo '<div class="alert alert-danger text-center" role="alert"> You have already reserved two books this week!</div>'; 
+     if (isset($_GET['Rented'])) echo '<div class="alert alert-danger text-center" role="alert"> You cant reserve a book you are currently renting.</div>';
+     if (isset($_GET['NotReturned'])) echo '<div class="alert alert-danger text-center" role="alert"> You have to return your expired book first.</div>' ;
+
+
+    $sql_res = "SELECT * FROM reservation 
+                WHERE username = '$username'
+                AND ISBN = '$bookIsbn' 
+                AND expiration_date >= DATE(CURRENT_TIMESTAMP)";
+
+    $ReservedThisBook = $conn->query($sql_res);
+                    
+    if($ReservedThisBook->num_rows == 0) { ?>
+            <form id="reservation" method="POST" action="reserve.php" autocomplete="on">
+                <button
+                        class="btn btn-secondary btn-lg btn-dark button-position"
+                        type="submit"
+                >
+                    Reserve
+                </button>
+                <input type="hidden" id="username" name="username" value="<?= $username ?>"/>
+                <input type="hidden" id="ISBN" name="ISBN" value="<?= $bookIsbn ?>"/>
+            </form>
+
+    <?php } 
+
+    if($ReservedThisBook->num_rows != 0) { ?>
+            <form id="unreservation" method="POST" action="unreserve.php" autocomplete="on">
+                <button
+                        class="btn btn-secondary btn-lg btn-dark button-position"
+                        type="submit"
+                >
+                    Unreserve
+                </button>
+                <div style = "margin-left: 10%">reservation expires in: <?php  $res = mysqli_fetch_array($ReservedThisBook, MYSQLI_ASSOC); echo ($res['expiration_date']) ?> </div>
+                <input type="hidden" id="username" name="username" value="<?= $username ?>"/>
+                <input type="hidden" id="ISBN" name="ISBN" value="<?= $bookIsbn ?>"/>
+            </form>
+    
+    <?php } ?>
 
 
 </body>

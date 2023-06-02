@@ -20,40 +20,55 @@
                 AND school_id = '$school_id'";
 
     $availableReservations = $conn->query($sql_ar);
-    if(empty($availableReservation)):
+    
+    if($availableReservations->num_rows == 0):
             header("Location: book.php?ISBN=$ISBN&NotAvailable=true");
+            exit;
     endif;
 
 
-    $sql_rsl = "SELECT COUNT(reservation_id) FROM reservation
+    $sql_rsl = "SELECT COUNT(reservation_id) AS res_id FROM reservation
                 WHERE username = '$username'
-                AND reservation_date + 7 >= CURRENT_TIMESTAMP";
+                AND expiration_date >= DATE(CURRENT_TIMESTAMP)";
 
-    $LimitedReservations = $conn->query($sql_rsl);
+    $LimitedReservations = mysqli_query($conn, $sql_rsl);
 
-    if($LimitedReservations >= 2):
+    $row = mysqli_fetch_array($LimitedReservations, MYSQLI_ASSOC);
+    $res_id = $row['res_id'];
+    if($res_id >= 2):
             header("Location: book.php?ISBN=$ISBN&LimitedReservations=true");
+            exit;
     endif;
      
     
 
-    $sql_Rented = "SELECT COUNT(rental_id) 
+    $sql_Rented = "SELECT *
                     FROM inventory i
                     INNER JOIN rental r ON r.inventory_id = i.inventory_id
-                    WHERE i.ISBN = $ISBN AND r.username = $username AND actual_return_date is NULL";
+                    WHERE i.ISBN = '$ISBN' AND r.username = '$username' AND actual_return_date is NULL";
 
     $Rented = $conn->query($sql_Rented);
-    if($Rented=0):
+    var_dump($Rented);
+    if($Rented->num_rows != 0):
             header("Location: book.php?ISBN=$ISBN&Rented=true");
+            exit;
     endif;
 
-    $sql_not_returned = "SELECT COUNT(rental_id) FROM rental
+    $sql_not_returned = "SELECT * FROM rental
                             WHERE actual_return_date IS NULL
-                            AND username = 'aarmstrong'
-                            AND expected_return_date < CURRENT_TIMESTAMP";
+                            AND username = '$username'
+                            AND expected_return_date < DATE(CURRENT_TIMESTAMP)";
 
-    $NotReturned = $conn->query($sql_NotReturned);
-    if($NotReturned != 0):
+    $NotReturned = $conn->query($sql_not_returned);
+    var_dump($NotReturned);
+    if($NotReturned->num_rows != 0):
             header("Location: book.php?ISBN=$ISBN&NotReturned=true");
+            exit;
     endif;
+
+
+    $sql = "INSERT INTO reservation (username, reservation_date, expiration_date, ISBN) VALUES ('$username', DATE(CURRENT_TIMESTAMP), DATE(CURRENT_TIMESTAMP)+7, '$ISBN')";
+    if (mysqli_query($conn, $sql)) {
+        header("Location: book.php?ISBN=$ISBN");
+    }  
 ?>
