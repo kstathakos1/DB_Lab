@@ -247,6 +247,7 @@ end;
 DELIMITER ;
 
 
+
 create
     definer = root@localhost function language_id(arg1 varchar(255)) returns int deterministic
 begin
