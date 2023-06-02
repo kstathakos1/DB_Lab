@@ -11,12 +11,12 @@ if ($_SESSION['username'] == null)
                     src="../library-PhotoRoom.png-PhotoRoom.png"
                     rel="shortcut icon" width="50" height="50"
                     style="margin-top: 0;"></a>
-        <a class="navbar-brand nav-head"  href="profile.php" style="margin-top: 10px"><div id="item"> Profile Details</div></a>
-        <a class="navbar-brand nav-head" id="item" href="rentals.php" style="margin-top: 10px ; margin-right: 10%;">My Rents</a>
+        <a class="navbar-brand nav-head"  href="profile.php" style="margin-top: 10px">Profile Details</a>
+        <a class="navbar-brand nav-head" href="rentals.php" style="margin-top: 10px ; margin-right: 10%;">My Rents</a>
     </div>
     <div class="navbar-end justify-content:end;" style="display: flex">
         <div style="margin-top: 1%">
-            <a class="navbar-brand nav-head" id="item" href="password_change.php" style="vertical-align: center">Change
+            <a class="navbar-brand nav-head"  href="password_change.php" style="vertical-align: center">Change
                 Password</a>
         </div>
         <div class="spaced btn-group">
@@ -28,7 +28,7 @@ if ($_SESSION['username'] == null)
                 <li>
                     <?php if ($status != 'student' and $status != 'teacher') {
                         ?>
-                        <form action="../operator/tools.php" style="all: unset; cursor: pointer;">
+                        <form action="../operator/index.php" style="all: unset; cursor: pointer;">
                             <button
                                     name="profile"
                                     style="all: unset; cursor: pointer;"

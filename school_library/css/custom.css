@@ -260,3 +260,14 @@ textarea {
     text-align: left;
 }
 
+
+/*#row1{*/
+/*    display: flex;*/
+/*}*/
+
+
+.col-md-6{
+    margin: auto;
+    width: 47.1%;
+    height: 3rem;
+}
