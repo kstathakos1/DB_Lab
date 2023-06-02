@@ -3,6 +3,7 @@ include('../config/database.php');
 if (!isset($_SERVER["HTTP_USER_AGENT"])) {
     die;
 }
+if (!isset($_SESSION))session_start();
 $query = "select if(school_number>0,concat(school_number,' ',school_type,' ',city),concat(school_type,' ',city)) as name
 from school_unit;";
 $conn = getDb();
@@ -21,7 +22,9 @@ $result1 = mysqli_query($conn, $query);
     />
 
 </head>
-<?php include('navbar.php') ?>
+<?php include('navbar.php') ;
+
+?>
 <body>
 <div class="container" id="background">
     <div class="row d-flex justify-content-center align-items-center">
@@ -29,7 +32,8 @@ $result1 = mysqli_query($conn, $query);
             <div class="card "
                  style="border-radius: 2rem; margin-top: 5%; margin-bottom: 5%; text-align: center; vertical-align: center;justify-items: center">
                 <div class="card-body">
-                    <form id="addbook" method="POST" action="addbook.php" enctype="multipart/form-data" autocomplete="off">
+                    <form id="addbook" method="POST" action="addbook.php" enctype="multipart/form-data"
+                          autocomplete="off">
                         <div class="container-xxl">
                             <img src="../library.jpg"
                                  vspace="15"
@@ -38,7 +42,7 @@ $result1 = mysqli_query($conn, $query);
 
                             <div class="row" id="row1" style="margin-top: 2% ;margin-bottom: 3%;">
                                 <div class="col-md-6 form-outline" style="width: 47.1%;">
-                                    <input type="text"
+                                    <input type="number"
                                            autocomplete="off"
                                            id="ISBN"
                                            name='ISBN'
@@ -47,7 +51,7 @@ $result1 = mysqli_query($conn, $query);
                                     />
                                     <label class="form-label" for="ISBN">ISBN</label>
                                 </div>
-                                <div class="col-md-6 form-outline" >
+                                <div class="col-md-6 form-outline">
                                     <input type="text"
                                            autocomplete="off"
                                            id="title"
@@ -59,7 +63,7 @@ $result1 = mysqli_query($conn, $query);
                                 </div>
                             </div>
                             <div class="row" style="margin-bottom: 3%">
-                                <div class="col-md-6 form-outline" >
+                                <div class="col-md-6 form-outline">
                                     <input type="text"
                                            autocomplete="off"
                                            id="authors"
@@ -68,78 +72,79 @@ $result1 = mysqli_query($conn, $query);
                                            value=""
                                            required="required"
                                     /><label class="form-label" for="title">Authors</label></div>
-                                <div class="col-md-6 form-outline" ">
-                                    <input type="text"
-                                           autocomplete="off"
-                                           id="categories"
-                                           name='categories'
-                                           class="form-control form-control-lg align-self-center"
-                                           value=""
-                                           required="required"
-                                    /><label class="form-label" for="title">Categories of Book</label>
+                                <div class="col-md-6 form-outline"
+                                ">
+                                <input type="text"
+                                       autocomplete="off"
+                                       id="categories"
+                                       name='categories'
+                                       class="form-control form-control-lg align-self-center"
+                                       value=""
+                                       required="required"
+                                /><label class="form-label" for="title">Categories of Book</label>
                             </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 3%">
+                            <div class="col-md-6 form-outline">
+                                <input type="text"
+                                       autocomplete="off"
+                                       id="publisher"
+                                       name='publisher'
+                                       class="form-control form-control-lg align-self-center"
+                                       value=""
+                                       required="required"
+                                /><label class="form-label" for="title">Publisher of Book</label>
                             </div>
-                            <div class="row" style="margin-bottom: 3%">
-                                <div class="col-md-6 form-outline" >
-                                    <input type="text"
-                                           autocomplete="off"
-                                           id="publisher"
-                                           name='publisher'
-                                           class="form-control form-control-lg align-self-center"
-                                           value=""
-                                           required="required"
-                                    /><label class="form-label" for="title">Publisher of Book</label>
-                                </div>
-                                <div class="col-md-6 form-outline">
-                                    <input type="text"
-                                           autocomplete="off"
-                                           id="language"
-                                           name='language'
-                                           class="form-control form-control-lg align-self-center"
-                                           value=""
-                                           required="required"
-                                    /><label class="form-label" for="title">Language of Book</label>
-                                </div>
+                            <div class="col-md-6 form-outline">
+                                <input type="text"
+                                       autocomplete="off"
+                                       id="language"
+                                       name='language'
+                                       class="form-control form-control-lg align-self-center"
+                                       value=""
+                                       required="required"
+                                /><label class="form-label" for="title">Language of Book</label>
                             </div>
-                            <div class="row" style="margin-bottom: 3%">
-                                <div class="col-md-6 form-outline">
-                                    <input type="number"
-                                           autocomplete="off"
-                                           id="pages"
-                                           name='pages'
-                                           class="form-control form-control-lg align-self-center"
-                                           value=""
-                                           required="required"
-                                    />
-                                    <label class="form-label" for="title">Number of pages of Book</label>
-                                </div>
-                                <div class="col-md-6 form-outline">
-                                    <input type="number"
-                                           autocomplete="off"
-                                           id="copies"
-                                           name='copies'
-                                           class="form-control form-control-lg align-self-center"
-                                           value=""
-                                           required="required"
-                                    />
-                                    <label class="form-label" for="title">Number of Copies</label>
-                                </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 3%">
+                            <div class="col-md-6 form-outline">
+                                <input type="number"
+                                       autocomplete="off"
+                                       id="pages"
+                                       name='pages'
+                                       class="form-control form-control-lg align-self-center"
+                                       value=""
+                                       required="required"
+                                />
+                                <label class="form-label" for="title">Number of pages of Book</label>
                             </div>
-                            <div class="row">
-                                <div class="input-group mb-4">
-                                    <label class="input-group-text" for="image">Book Image</label>
-                                    <input type="file" class="form-control" id="image" name="image" required="required">
-                                </div>
+                            <div class="col-md-6 form-outline">
+                                <input type="number"
+                                       autocomplete="off"
+                                       id="copies"
+                                       name='copies'
+                                       class="form-control form-control-lg align-self-center"
+                                       value=""
+                                       required="required"
+                                />
+                                <label class="form-label" for="title">Number of Copies</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-4">
+                                <label class="input-group-text" for="image">Book Image</label>
+                                <input type="file" class="form-control" id="image" name="image" required="required">
+                            </div>
 
-                                <div class="form-group" style="display: grid">
-                                    <label style="margin-bottom: 0;text-align: left;" for="comment">Book Summary:</label>
-                                    <textarea class="form-control" id="comment" required="required" rows="3"
-                                              id="summary" name="summary"></textarea>
-                                </div>
+                            <div class="form-group" style="display: grid">
+                                <label style="margin-bottom: 0;text-align: left;" for="comment">Book Summary:</label>
+                                <textarea class="form-control" id="comment" required="required" rows="3"
+                                          id="summary" name="summary"></textarea>
                             </div>
-                            <button class="button btn btn-outline-success btn-lg " type="submit">Add Book</button>
-                            <a href="../index.php" class="btn btn-outline-danger btn-lg" role="button"
-                               aria-disabled="true">Cansel</a>
+                        </div>
+                        <button class="button btn btn-outline-success btn-lg " type="submit">Add Book</button>
+                        <a href="../index.php" class="btn btn-outline-danger btn-lg" role="button"
+                           aria-disabled="true">Cansel</a>
                     </form>
                 </div>
             </div>
@@ -160,5 +165,22 @@ $result1 = mysqli_query($conn, $query);
         type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"
 ></script>
+<script src="../js/sweetalert.js"></script>
+<?php
+if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
+    echo $_SESSION['success'];
+    ?>
+    <script>
+        swal({
+            title: '<?php echo $_SESSION['success_log'] ?>',
+            icon: '<?php echo $_SESSION['success'] ?>',
+            button: "Close!",
+        });
+    </script>
+    <?php
+    unset($_SESSION['success']);
+    unset($_SESSION['success_log']);
+}
+?>
 </body>
 </html>

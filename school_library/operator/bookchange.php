@@ -6,7 +6,7 @@ $conn = getDb();
 $school_id = $_SESSION['id'];
 $title = $_POST['title'];
 $new_isbn = $_POST['ISBN'];
-echo $new_isbn. "<br>";
+echo $new_isbn . "<br>";
 $summary = $_POST['summary'];
 $numpage = $_POST['numpage'];
 $new_authors = $_POST['author'];
@@ -75,8 +75,9 @@ if ($old_isbn == $new_isbn) {
                     $author = $row_new_authors['name_id'];
                 } else {
                     $author = $row_new_authors['name_id'];
-                    $book_author_insert = $conn->query("insert into book_author (authors_id,ISBN) VALUES ($author,$new_isbn)");
                 }
+                $book_author_insert = $conn->query("insert into book_author (authors_id,ISBN) VALUES ($author,$new_isbn)");
+
             }
 
         }
@@ -142,7 +143,6 @@ if ($old_isbn == $new_isbn) {
     }
 
 
-
 } else {
     $sql_lanquage = $conn->query("select language_id('$language') as id ; ");
     $row_new_language = mysqli_fetch_assoc($sql_lanquage);
@@ -161,7 +161,8 @@ if ($old_isbn == $new_isbn) {
             $row_new_authors = mysqli_fetch_assoc($new_authors_id);
             $author = $row_new_authors['name_id'];
         } else {
-            $author = $row_new_authors['name_id'];}
+            $author = $row_new_authors['name_id'];
+        }
         echo $author;
         $author_update = $conn->query("insert into book_author (ISBN, authors_id) Values ($new_isbn, $author)");
     }
