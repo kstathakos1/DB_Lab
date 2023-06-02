@@ -12,6 +12,7 @@ $result1 = mysqli_query($conn, $query);
 
 <html>
 <head>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link
@@ -102,7 +103,7 @@ $result1 = mysqli_query($conn, $query);
                             </div>
                             <div class="row" style="margin-bottom: 3%">
                                 <div class="col-md-6 form-outline">
-                                    <input type="text"
+                                    <input type="number"
                                            autocomplete="off"
                                            id="pages"
                                            name='pages'
@@ -113,7 +114,7 @@ $result1 = mysqli_query($conn, $query);
                                     <label class="form-label" for="title">Number of pages of Book</label>
                                 </div>
                                 <div class="col-md-6 form-outline">
-                                    <input type="text"
+                                    <input type="number"
                                            autocomplete="off"
                                            id="copies"
                                            name='copies'

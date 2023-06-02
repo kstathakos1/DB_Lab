@@ -271,3 +271,7 @@ textarea {
     width: 47.1%;
     height: 3rem;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+}
