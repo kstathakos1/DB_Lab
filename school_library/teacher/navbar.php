@@ -5,6 +5,7 @@ if ($_SESSION['username'] == null)
     header("Location: login.php");
 ?>
 <link rel="stylesheet" type="text/css" href="../css/custom.css?<?= time() ?>">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <nav class="navbar navbar-light" style="background-color: #DDD9D2;" ¬>
     <div class="navbar-header" style="justify-content:start; display: flex; flex-direction: row;">
         <a class="navbar-brand nav-head left-spaced" href="../index.php"><img
@@ -21,8 +22,8 @@ if ($_SESSION['username'] == null)
         </div>
         <div class="spaced btn-group">
             <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside" aria-expanded="false">
-                <?= $_SESSION['username'] ?></span>
+                    data-bs-auto-close="outside" aria-expanded="false"><i class="fas fa-user fa-xl">
+                    <?= $_SESSION['username'] ?></span></i>
             </button>
             <ul class="dropdown-menu text-center" style="min-width: 100%;">
                 <li>
