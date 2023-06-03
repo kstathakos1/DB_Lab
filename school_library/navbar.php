@@ -32,6 +32,7 @@ if ($_SESSION['username'] == null)
 
     </div>
 
+
     <div class="input-group w-50">
         <div class="form-outline w-50"style="flex: 1">
             <input id="search-input" type="search" id="form1" class="form-control form-control-lg" aria-label="Search"

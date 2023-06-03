@@ -20,6 +20,7 @@ if ($_SESSION['username'] == null)
 <script src="../js/jquery-ui.js"></script>
 
 <link rel="shortcut icon" href="../library.jpg" type="image/x-icon">
+
 <nav class="navbar navbar-light" style="background-color: #DDD9D2;" ¬>
     <div class="navbar-header justify-content:start;"
          style="justify-content:start; display: flex; flex-direction: row;">

@@ -12,12 +12,32 @@ $publisher = $_POST['publisher'];
 $pages = $_POST['pages'];
 $copies = $_POST['copies'];
 $language = $_POST['language'];
-$image = $_FILES['image'];
 $summary = $_POST['summary'];
 $authors_array = explode(", ", $authors);
 $category_array = explode(", ", $categories);
 $_SESSION['success_log']='';
+$image = $_FILES['image'];
+print_r($image);
+$full_path = $image['tmp_name']; // Use the correct array key to access the temporary path
 
+require 'vendor/autoload.php';
+
+use Cloudinary\Configuration\Configuration;
+use Cloudinary\Api\Upload\UploadApi;
+
+Configuration::instance([
+    'cloud' => [
+        'cloud_name' => 'dxjqxk3v7',
+        'api_key' => '357863356125793',
+        'api_secret' => '6jFQIC1M2HbpK2eEH9_dRy36wFE'
+    ],
+    'url' => [
+        'secure' => true
+    ]
+]);
+
+$data = (new UploadApi())->upload($full_path); // Remove the single quotes around $full_path
+$image_url= $data['secure_url'];
 $sql_lanquage = $conn->query("select language_id('$language') as li");
 $row_new_language = mysqli_fetch_assoc($sql_lanquage);
 if ($row_new_language['li'] == null) {
@@ -26,7 +46,7 @@ if ($row_new_language['li'] == null) {
 $sql_lanquage = $conn->query("select language_id('$language') as li");
 $row_new_language = mysqli_fetch_assoc($sql_lanquage);
 $language_id = $row_new_language['li'];
-$query_book_insert="insert into book (ISBN,title,image,publisher,page,summary,language_id) VALUES ($isbn,'$title','kk','$publisher',$pages ,'$summary',$language_id) ; ";
+$query_book_insert="insert into book (ISBN,title,image,publisher,page,summary,language_id) VALUES ($isbn,'$title','$image_url','$publisher',$pages ,'$summary',$language_id) ; ";
 try {
     // Execute the query
     $book_insert = $conn->query($query_book_insert);
