@@ -31,10 +31,10 @@ if ($_SESSION['username'] == null)
                     style="margin-top: 0;"></a>
         <a class="navbar-brand nav-head text-decoration-underline" href="index.php" style="margin-top: 10px">Rentals of School
             </a>
-        <a class="navbar-brand nav-head text-decoration-underline" href="rentals_of_school.php"
-           style="margin-top: 10px">Rentals of School</a>
-        <a class="navbar-brand nav-head text-decoration-underline" href="reservations_of_school.php"
-           style="margin-top: 10px">Reservations</a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="book_category_history.php"
+           style="margin-top: 10px">Book Category History</a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="youngteachers.php"
+           style="margin-top: 10px">Young Teachers with must rents</a>
         <a class="navbar-brand nav-head text-decoration-underline" href="users.php"
            style="margin-top: 10px">Users</a>
         <a class="navbar-brand nav-head text-decoration-underline" href="average_review.php"
@@ -70,6 +70,18 @@ if ($_SESSION['username'] == null)
                             </form>
                         </ul>
                     <?php } ?>
+                    <?php if ($status=='admin'){
+                        ?>
+                        <ul class="dropdown dropdown-item-text">
+                            <form action="admin_tools.php"style="all: unset; cursor: pointer;">
+                                <button
+                                        name="profile"
+                                        style="all: unset; cursor: pointer;"
+                                > Admin Tools
+                                </button>
+                            </form>
+                        </ul>
+                    <?php }?>
 
                     <form action="../logout.php" method="POST" style="all: unset; cursor: pointer;">
                         <button
