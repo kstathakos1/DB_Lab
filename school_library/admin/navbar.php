@@ -73,7 +73,7 @@ if ($_SESSION['username'] == null)
                     <?php if ($status=='admin'){
                         ?>
                         <ul class="dropdown dropdown-item-text">
-                            <form action="admin/admin_tools.php"style="all: unset; cursor: pointer;">
+                            <form action="admin_tools.php"style="all: unset; cursor: pointer;">
                                 <button
                                         name="profile"
                                         style="all: unset; cursor: pointer;"
