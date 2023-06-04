@@ -1,7 +1,7 @@
 <?php
 if (!isset($_SESSION)) session_start();
-$status=$_SESSION['status'];
-if ($_SESSION['username']==null)
+$status = $_SESSION['status'];
+if ($_SESSION['username'] == null)
     header("Location: login.php");
 ?>
 <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -13,18 +13,26 @@ if ($_SESSION['username']==null)
 <link rel="stylesheet" href="../css/fontawesome.css">
 <link rel="stylesheet" href="../css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<nav class="navbar navbar-light" style="background-color: #DDD9D2;" ¬>
-    <div class="navbar-header" style="justify-content:start; display: flex; flex-direction: row;">
-        <a class="navbar-brand nav-head left-spaced" href="../index.php"><img src="../library-PhotoRoom.png-PhotoRoom.png"
-                                                                           rel="shortcut icon" width="50" height="50"
-                                                                           style="margin-top: 0;"></a>
-        <a class="navbar-brand nav-head" href="../books.php" style="margin-top: 10px">Books</a>
-        <a class="navbar-brand nav-head" href="../authors.php" style="margin-top: 10px">Authors</a>
-        <a class="navbar-brand nav-head" href="../categories.php" style="margin-top: 10px">Categories</a>
-        <a class="navbar-brand nav-head" href="../publishers.php" style="margin-top: 10px">Publishers</a>
-        <a class="navbar-brand nav-head" href="../languages.php" style="margin-top: 10px">Languages</a>
-    </div>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/jquery-ui.css">
+<script src="../js/jquery-1.10.2.js"></script>
+<script src="../js/jquery-ui.js"></script>
 
+<link rel="shortcut icon" href="../library.jpg" type="image/x-icon">
+
+<nav class="navbar navbar-light" style="background-color: #DDD9D2;" ¬>
+    <div class="navbar-header justify-content:start;"
+         style="justify-content:start; display: flex; flex-direction: row;">
+
+            <a class="navbar-brand nav-head left-spaced" href="index.php"><img
+                        src="../library-PhotoRoom.png-PhotoRoom.png"
+                        rel="shortcut icon" width="50" height="50"
+                        style="margin-top: 0;"></a>
+            <a class="navbar-brand nav-head text-decoration-underline" href="add_book.php" style="margin-top: 10px">Add Book</a>
+            <a class="navbar-brand nav-head text-decoration-underline" href="rentals_of_school.php" style="margin-top: 10px">Rentals of School</a>
+            <a class="navbar-brand nav-head text-decoration-underline" href="reservations_of_school.php" style="margin-top: 10px">Reservations</a>
+    </div>
     <div class="navbar-end justify-content:end;">
         <div class="spaced btn-group">
             <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown"
@@ -34,24 +42,26 @@ if ($_SESSION['username']==null)
             <ul class="dropdown-menu text-center" style="min-width: 100%;">
                 <li>
                     <ul class="dropdown dropdown-item-text">
-                        <form action="../profile-redirect.php"  style="all: unset; cursor: pointer;">
+                        <form action="../profile-redirect.php" style="all: unset; cursor: pointer;">
                             <button
                                     class="text-center"
                                     name="profile"
                                     style="all: unset; cursor: pointer;"
                             > Profile
                             </button>
-                        </form></ul>
-                    <?php if ($status != 'student' AND $status!='teacher') {
+                        </form>
+                    </ul>
+                    <?php if ($status != 'student' and $status != 'teacher') {
                         ?>
                         <ul class="dropdown dropdown-item-text">
-                            <form action="../operator/tools.php" style="all: unset; cursor: pointer;">
+                            <form action="index.php" style="all: unset; cursor: pointer;">
                                 <button
                                         name="profile"
                                         style="all: unset; cursor: pointer;"
                                 > Tools
                                 </button>
-                            </form></ul>
+                            </form>
+                        </ul>
                     <?php } ?>
 
                     <form action="../logout.php" method="POST" style="all: unset; cursor: pointer;">

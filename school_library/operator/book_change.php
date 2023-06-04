@@ -122,7 +122,7 @@ $language = mysqli_fetch_assoc($language);
     </div>
 
     <button
-            class="btn btn-outline-dark button-position fas fa-save fa-xl "
+            class="btn btn-outline-success button-position fas fa-save fa-xl "
             data-bs-auto-close="outside"
     >
         Save Changes
