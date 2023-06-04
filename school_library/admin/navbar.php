@@ -31,10 +31,10 @@ if ($_SESSION['username'] == null)
                     style="margin-top: 0;"></a>
         <a class="navbar-brand nav-head text-decoration-underline" href="index.php" style="margin-top: 10px">Rentals of School
             </a>
-        <a class="navbar-brand nav-head text-decoration-underline" href="rentals_of_school.php"
-           style="margin-top: 10px">Rentals of School</a>
-        <a class="navbar-brand nav-head text-decoration-underline" href="reservations_of_school.php"
-           style="margin-top: 10px">Reservations</a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="book_category_history.php"
+           style="margin-top: 10px">Book Category History</a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="youngteachers.php"
+           style="margin-top: 10px">Young Teachers with must rents</a>
         <a class="navbar-brand nav-head text-decoration-underline" href="users.php"
            style="margin-top: 10px">Users</a>
         <a class="navbar-brand nav-head text-decoration-underline" href="average_review.php"
