@@ -2,7 +2,7 @@
 create
     definer = root@localhost procedure teacher_book_category_loan(IN arg1 int)
 begin
-    select distinct concat(first_name,' ',last_name) AS 'Name'
+    select distinct concat(first_name,' ',last_name) AS Name
         from user u
             inner join rental r ON u.username = r.username
     inner join inventory i ON r.inventory_id = i.inventory_id
@@ -10,7 +10,7 @@ begin
     inner join category c on bc.category_id = c.category_id
     where c.category_id=arg1 and (u.status='teacher' or u.status='operator');
 
-end;
+end$$
 
 
 create

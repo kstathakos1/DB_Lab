@@ -12,8 +12,8 @@ from ((`lab`.`school_unit` join `lab`.`inventory`
 create
     definer = root@localhost procedure list_loans_by_school(IN year_param int, IN month_param int)
 BEGIN
-    SELECT concat( rps.school_number,' ', rps.school_type, ' ', rps.city) AS 'School Name',
-           COUNT(r.rental_id) AS 'number of loans'
+    SELECT concat( rps.school_number,' ', rps.school_type, ' ', rps.city) AS name,
+           COUNT(r.rental_id) AS number
     FROM RENTALS_PER_SCHOOL rps
     INNER JOIN rental r ON rps.rental_id = r.rental_id
     WHERE (year_param IS NULL OR YEAR(r.rental_date) = year_param)
