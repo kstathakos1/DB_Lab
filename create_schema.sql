@@ -404,33 +404,17 @@ select distinct concat(first_name,' ',last_name) AS 'Name'
     inner join book_category bc on i.ISBN=bc.ISBN
     inner join category c on bc.category_id = c.category_id
     where c.category_id=arg1 and (u.status='teacher' or u.status='operator');
-
-CREATE INDEX idx_author_name ON author (authors_first_name, authors_last_name);
+    
+CREATE INDEX rental_rental_date_idx ON rental (rental_date);
 
 CREATE INDEX idx_category ON category (category);
 
-CREATE INDEX idx_language ON language (language);
+CREATE INDEX idx_user_status_username ON user (status, username);
+ 
+CREATE INDEX idx_inv_id ON inventory(inventory_id);
 
-CREATE INDEX idx_book_ISBN ON book (ISBN);
+CREATE INDEX idx_author_id ON author (authors_id);
 
-CREATE INDEX idx_book_language_id ON book (language_id);
+CREATE INDEX idx_rental_expected_return_date ON rental (expected_return_date); 
 
-CREATE INDEX idx_book_author_ISBN ON book_author (ISBN);
-
-CREATE INDEX idx_book_author_authors_id ON book_author (authors_id);
-
-CREATE INDEX idx_book_category_ISBN ON book_category (ISBN);
-
-CREATE INDEX idx_book_category_category_id ON book_category (category_id);
-
-CREATE INDEX idx_school_unit_type_city ON school_unit (school_type, city);
-
-CREATE INDEX idx_inventory_ISBN_school_id ON inventory (ISBN, school_id);
-
-CREATE INDEX idx_user_username_status ON user (username, status);
-
-CREATE INDEX idx_rental_username_inventory_id ON rental (username, inventory_id);
-
-CREATE INDEX idx_reservation_username_ISBN ON reservation (username, ISBN);
-
-CREATE INDEX idx_review_ISBN_username ON review (ISBN, username);
+CREATE INDEX idx_author_name ON author (authors_first_name, authors_last_name);
