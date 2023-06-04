@@ -22,6 +22,11 @@ $past_rentals = $conn->query("SELECT b.title FROM book b
                          INNER JOIN inventory i ON i.ISBN = b.ISBN
                          INNER JOIN rental r ON r.inventory_id = i.inventory_id
                          WHERE r.username= '$username' AND r.actual_return_date IS NOT NULL;");
+
+
+$active_reservations = $conn->query("SELECT b.title FROM book b
+                                    INNER JOIN reservation r ON r.ISBN = b.ISBN
+                                    WHERE r.username= 'aarmstrong' AND r.expiration_date > DATE(CURRENT_TIMESTAMP);");
 ?>
 
 <html>
@@ -188,6 +193,21 @@ $past_rentals = $conn->query("SELECT b.title FROM book b
 
                     </div>
 
+                    <div class="mb-2" style=" display: flex;">
+                        <label style="width: 30%;align-items: center; vertical-align: center ;margin-top: 10px">Active Reservations:</label>
+                        <label
+                                type="text"
+                                id="active_rentals"
+                                class="form-control form-control-lg align-self-center"
+                                style="width: 70%;"
+                        >
+                        <?php
+                            while ($row = $active_reservations->fetch_assoc()) {
+                                echo $row['title'] . '<br>';
+                              }
+                        ?>
+
+                    </div>
             </div>
 
         </div>
