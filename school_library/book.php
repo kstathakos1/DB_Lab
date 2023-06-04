@@ -149,5 +149,101 @@ $language = $conn->query("select l.language as language
     
     <?php } ?>
 
+    <form id="show_reviews" method="POST" action="show_reviews.php" autocomplete="on">
+                <button
+                    class="btn btn-secondary btn-lg btn-dark button-position-secondary"
+                    type="submit"
+                >
+                    Show Reviews
+                </button>
+                <input type="hidden" id="ISBN" name="ISBN" value="<?= $bookIsbn ?>"/>
+    </form>
+
+        <div class="container" style="border-radius: 1rem; background-color: #DDD9D2; margin-top: 12%;">
+            <form id="review_form" method="POST" action="review.php" autocomplete="off">
+                <input type="hidden" id="ISBN" name="ISBN" value="<?= $bookIsbn ?>"/>
+                <div class="row d-flex justify-content-center align-items-center">
+                  <div class="col-xl-6" >
+                    <div class="card shadow-2-strong" style="border-radius: 1rem; margin-top: 10%; margin-bottom: 20%; text-align: center;">
+                      <div class="card-body text-center">
+                          <label class="form-check-label" for="flexCheckDefault">
+                                  Strongly Dislike
+                              </label>
+                              <input class="form_check_input"
+                                     type="radio"
+                                     value=1
+                                     id="strongly_dislike"
+                                     name="likert"
+                              />
+
+                              <label class="form-check-label" for="flexCheckDefault">
+                                  Dislike
+                              </label>
+                              <input class="form_check_input"
+                                     type="radio"
+                                     value=2
+                                     id="dislike"
+                                     name="likert"
+                              />
+
+                              <label class="form-check-label" for="flexCheckDefault">
+                                  Neutral
+                              </label>
+                              <input class="form_check_input"
+                                     type="radio"
+                                     value=3
+                                     id="neutral"
+                                     name="likert"
+                              />
+
+                              <label class="form-check-label" for="flexCheckDefault">
+                                  Like
+                              </label>
+                              <input class="form_check_input"
+                                     type="radio"
+                                     value=4
+                                     id="like"
+                                     name="likert"
+                              />
+
+                              <label class="form-check-label" for="flexCheckDefault">
+                                  Strongly Like
+                              </label>
+                              <input class="form_check_input"
+                                     type="radio"
+                                     value=5
+                                     id="strongly_like"
+                                     name="likert"
+                              />
+                      </div>
+                    </div>
+                    <div class="card shadow-2-strong" style="border-radius: 1rem; margin-top: 2%; margin-bottom: 20%; text-align: center;">
+                      <div class="card-body text-center">
+                      <div class="form-outline mb-3" style="margin-left: 2%; margin-right: 2%;">
+                            <input
+                              type="text"
+                              autocomplete="off"
+                              id="review"
+                              placeholder="review"
+                              name='review'
+                              class="form-control form-control-lg align-self-center"
+                              value=""
+                            />
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row a-flex justify-content-center align-items-center">
+                      <button style="margin-top:2%"
+                                      class="btn btn-secondary btn-lg btn-dark"
+                                      type="submit"
+                              >
+                                  Submit Review
+                      </button>
+                      <?php if (isset($_GET['BookReviewed'])) echo '<div class="row a-flex justify-content-center align-items-center"> Review Submitted</div>' ?> 
+                    </div>
+                  </div>
+                </div>
+            </form>
+        </div>
 
 </body>
