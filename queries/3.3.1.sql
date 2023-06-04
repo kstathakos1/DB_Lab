@@ -8,17 +8,19 @@ begin
            where concat(authors_first_name,' ',authors_last_name)=arg1;
     return au;
     end;
-create procedure book_search_user(IN title varchar(255),IN category char(255),IN author varchar(255) ,IN school int)
-    SELECT distinct b.title
-FROM book b
-inner join book_author ba on b.ISBN = ba.ISBN
-inner join author a on ba.authors_id = a.authors_id
-inner join book_category bc on b.ISBN = bc.ISBN
-inner join category c on bc.category_id = c.category_id
-inner join inventory i on b.ISBN = i.ISBN
-where (title is null or locate(title,b.title))
-  AND (category is null or category=c.category)
-  AND (author is null or a.authors_id=routine_name(author))
-AND (school=i.school_id)
+create
+    definer = root@localhost procedure book_search_user(IN title char(255), IN category char(255), IN author char(255),
+                                                       IN school int)
+SELECT cps.title,group_concat(concat(a.authors_first_name,' ',a.authors_last_name) separator ', ') as authors_name,cps.image,cps.ISBN as ISBN
+FROM copies_per_school cps
+inner join book_author ba on cps.ISBN = ba.ISBN
+inner join author a on a.authors_id = ba.authors_id
+inner join book_category bc on ba.ISBN = bc.ISBN
+inner join category c on c.category_id = bc.category_id
+where (title is null or locate(title,cps.title))
+AND (category is null or c.category like concat('%',category,'%'))
+AND (author is null or concat(a.authors_first_name,' ',a.authors_last_name)like concat('%',author,'%'))
+AND (cps.school_id=school)
+group by cps.title,cps.ISBN;
 
 ;

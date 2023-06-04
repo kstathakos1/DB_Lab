@@ -73,10 +73,10 @@ INSERT INTO lab.category (category_id, category) VALUES (1, 'Comic');
 -- language insert
 INSERT INTO lab.language (language_id, language) VALUES (1, 'Greek');
 INSERT INTO lab.language (language_id, language) VALUES (2, 'English');
-INSERT INTO lab.language (language_id, language) VALUES (3, ' French');
+INSERT INTO lab.language (language_id, language) VALUES (3, 'French');
 INSERT INTO lab.language (language_id, language) VALUES (4, 'German');
 INSERT INTO lab.language (language_id, language) VALUES (5, 'Italian');
-INSERT INTO lab.language (language_id, language) VALUES (6, ' Spanish');
+INSERT INTO lab.language (language_id, language) VALUES (6, 'Spanish');
 
 -- School_unit insert
 INSERT INTO lab.School_unit (school_id, school_number, school_type, city, school_mail, address, telephone, Headmaster_first_name, Headmaster_last_name) VALUES (1, 0, 'Elementary of', 'New Conortown', 'hansen.kasandra@example.net', '77118 Wintheiser Throughway Apt. 459 Abernathyshire, MS 38913', '(607)687-3025', 'Fannie', 'Volkman');
