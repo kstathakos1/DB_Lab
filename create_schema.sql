@@ -212,18 +212,6 @@ where (not (exists(select 1
 
 
 
-create view operator_user_info as
-select `lab`.`user`.`username`     AS `username`,
-       `lab`.`user`.`first_name`   AS `first_name`,
-       `lab`.`user`.`last_name`    AS `last_name`,
-       `lab`.`user`.`address`      AS `address`,
-       `lab`.`user`.`email`        AS `email`,
-       `lab`.`user`.`phone_number` AS `phone_number`,
-       `lab`.`user`.`school_id`    AS `school_id`,
-       `lab`.`user`.`status`       AS `status`
-from `lab`.`user`;
-
-
 
 create procedure author_categorization(IN id char(255))
 SELECT distinct author.authors_first_name, author.authors_last_name
