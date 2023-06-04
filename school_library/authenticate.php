@@ -9,7 +9,7 @@
 
     $conn = getDb();
 
-    $sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
+    $sql = "SELECT * FROM user WHERE username='$username' AND password='$password' AND activity='activated'";
     $school_q="SELECT school_id as id FROM user WHERE username='$username'";
     $result = mysqli_query($conn, $sql);
     $school=$conn->query($school_q);

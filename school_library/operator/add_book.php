@@ -168,7 +168,6 @@ $result1 = mysqli_query($conn, $query);
 <script src="../js/sweetalert.js"></script>
 <?php
 if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
-    echo $_SESSION['success'];
     ?>
     <script>
         swal({

@@ -29,7 +29,9 @@ if ($_SESSION['username'] == null)
                 <li>
                     <?php if ($status != 'student' and $status != 'teacher') {
                         ?>
-                        <form action="../operator/index.php" style="all: unset; cursor: pointer;">
+                    <?php if ($status=='operator') { ?>
+                    <form action="operator/rentals_of_school.php" style="all: unset; cursor: pointer;"><?php } else {?>
+                        <form action="admin/index.php" style="all: unset; cursor: pointer;"> <?php }?>
                             <button
                                     name="profile"
                                     style="all: unset; cursor: pointer;"
