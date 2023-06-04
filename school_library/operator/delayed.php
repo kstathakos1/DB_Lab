@@ -17,30 +17,32 @@
 
     if (!isset($_SESSION)) session_start();
     $username = $_SESSION['username'];
+    $integers = null;
+    $strings = null;
     $conn = getDb();
     $school_id = $_SESSION['id'];
     if (isset($_GET['search'])) {
         $search = $_GET['search'];
-        $search='%'.$search.'%';
-        $result = $conn->query("SELECT r.rental_id, r.username, r.rental_date, r.expected_return_date, r.actual_return_date, i.ISBN, CONCAT(u.first_name, ' ', u.last_name) AS name,b.title
-FROM rental r
-INNER JOIN inventory i ON r.inventory_id = i.inventory_id
-    inner join book b on i.ISBN = b.ISBN
-INNER JOIN user u ON r.username = u.username
+        if (is_numeric($search)){
+            $result=$conn->query( "call out_of_date_borrowers(null,$search,$school_id) ; ");
+        }
+        else
+            if ($search!=' '){
+                $search_array=explode(' ',$search);
+                if (count($search_array)==3){
+                    $name='%'.$search_array[0].' '.$search_array[1].'%';
+                    $result=$conn->query( "call out_of_date_borrowers('$name',$search_array[2],$school_id) ; ");
+                }else{
 
-WHERE CONCAT(u.first_name, ' ', u.last_name) like '$search' AND i.school_id = $school_id ;");
-
-    } else {
-
-        $result = $conn->query("SELECT concat(u.first_name,' ',u.last_name) as name ,u.username,b.title,b.ISBN,r.rental_date,r.expected_return_date,r.actual_return_date,r.rental_id
-FROM rental r 
-    inner join user u on r.username = u.username
-inner join inventory i on r.inventory_id = i.inventory_id
-inner join book b on i.ISBN = b.ISBN
-where i.school_id=$school_id 
-order by r.rental_date desc");
+                    $search='%'.$search.'%';
+                    $result=$conn->query( "call out_of_date_borrowers('$search',null,$school_id) ; ");}
+            }
+            else{
+                $result=$conn->query( "call out_of_date_borrowers(null,null,$school_id) ; ");
+            }
     }
-
+    else
+        $result=$conn->query( "call out_of_date_borrowers(null,null,$school_id) ; ");
     $text = 'Expected to be returned';
 
     ?>
@@ -55,47 +57,8 @@ order by r.rental_date desc");
                 width="60"
                 style="margin-left: 47.4%"
         >
-        <div class="modal fade" id="addrental" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">New Rental</h5>
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
-                    </div>
-                    <form id="addrent" method="post" action="addrental.php" autocomplete="off">
-                        <div class="modal-body">
-                            <label>username</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                <span class="input-group-text"><i
-                                            class="fas fa-user-alt"></i>
-                                </span>
-                                </div>
-                                <input type="text" class="form-control" name="username" placeholder="username"
-                                       autocomplete="off" required="required" id="username">
-                            </div>
-                            <label style="margin-top: 2rem; ">Book ISBN</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-regular fa-book"></i>
-                                </span>
-                                </div>
-                                <input type="text" class="form-control" placeholder="ISBN" name="ISBN"
-                                       autocomplete="off" required="required" id="ISBN" style="margin-bottom: 1rem;">
-                            </div>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add Rental</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <form id="serach" action="rentals_of_school.php?search=" autocomplete="off">
+        <form id="serach" action="delayed.php?search=" autocomplete="off">
             <div class="row" style="margin-bottom: 1%">
                 <div class="col-10">
                     <div class="input-group">
@@ -111,13 +74,13 @@ order by r.rental_date desc");
 
                 <div class="col-2">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-dark fas fa-add" data-toggle="modal"
-                                data-target="#addrental">Add Rental</button>
-                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
+                        <button type="button" class="btn btn-dark dropdown-toggle " data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            options
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="delayed.php">Delayed</a>
+                            <a class="dropdown-item" href="rentals_of_school.php">All Rentals</a>
+                            <a class="dropdown-item" href="notreturned.php">Delayed Books that havent been returned </a>
                         </div>
                     </div>
 
@@ -145,6 +108,7 @@ order by r.rental_date desc");
                             <th scope="col">Rent Date</th>
                             <th scope="col">Expected Return Date</th>
                             <th scope="col">Actual Return Date</th>
+                            <th scope="col">Days Delayed</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -171,7 +135,8 @@ order by r.rental_date desc");
                                                     href="returned.php?rental_id=<?= $rental['rental_id'] ?>"><?= $text ?> </a>
                                         </button>
                                     <?php }
-                                    ?>
+                                    ?></td>
+                                <td><?php echo $rental['delaying_time']; ?></td>
                             </tr>
                         <?php } ?>
                         </tbody>

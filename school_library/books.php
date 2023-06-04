@@ -5,10 +5,7 @@
     $username= $_SESSION['username'];
     $sc=$_SESSION['id'];
     $conn = getDb();
-    $result = $conn->query("SELECT image, ISBN, title, publisher 
-                                    FROM copies_per_school
-                                    where school_id=$sc
-                                    order by title
+    $result = $conn->query("call book_search_op(null,null,null,null,$sc);
 ;");
 
 ?>
@@ -54,7 +51,7 @@
                             <a style="color: black;" href="book.php?ISBN=<?=$isbn?>">
                                 <?php echo $item['title'] ?>
                             </a>
-                            <div style="font-size: 10px;"> <?php echo $item['publisher'] ?></div>
+                            <div style="font-size: 10px;"> <?php echo $item['authors_name'] ?></div>
                         </div>
                     </div>
             </div>

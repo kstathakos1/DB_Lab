@@ -25,13 +25,20 @@ if ($_SESSION['username'] == null)
     <div class="navbar-header justify-content:start;"
          style="justify-content:start; display: flex; flex-direction: row;">
 
-            <a class="navbar-brand nav-head left-spaced" href="index.php"><img
-                        src="../library-PhotoRoom.png-PhotoRoom.png"
-                        rel="shortcut icon" width="50" height="50"
-                        style="margin-top: 0;"></a>
-            <a class="navbar-brand nav-head text-decoration-underline" href="add_book.php" style="margin-top: 10px">Add Book</a>
-            <a class="navbar-brand nav-head text-decoration-underline" href="rentals_of_school.php" style="margin-top: 10px">Rentals of School</a>
-            <a class="navbar-brand nav-head text-decoration-underline" href="reservations_of_school.php" style="margin-top: 10px">Reservations</a>
+        <a class="navbar-brand nav-head left-spaced" href="../index.php"><img
+                    src="../library-PhotoRoom.png-PhotoRoom.png"
+                    rel="shortcut icon" width="50" height="50"
+                    style="margin-top: 0;"></a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="add_book.php" style="margin-top: 10px">Add
+            Book</a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="rentals_of_school.php"
+           style="margin-top: 10px">Rentals of School</a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="reservations_of_school.php"
+           style="margin-top: 10px">Reservations</a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="users.php"
+           style="margin-top: 10px">Users</a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="average_review.php"
+        style="margin-top: 10px">Average review</a>
     </div>
     <div class="navbar-end justify-content:end;">
         <div class="spaced btn-group">

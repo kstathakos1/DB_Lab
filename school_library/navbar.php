@@ -3,6 +3,9 @@ if (!isset($_SESSION)) session_start();
 $status = $_SESSION['status'];
 if ($_SESSION['username'] == null)
     header("Location: login.php");
+
+
+
 ?>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/custom.css?<?= time() ?>">
@@ -15,10 +18,8 @@ if ($_SESSION['username'] == null)
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link
-        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.css"
-        rel="stylesheet"
-/>
+
+
 <nav class="navbar navbar-light" style="background-color: #DDD9D2;display: flex" ¬>
     <div class="navbar-header" style="justify-content:start; display: flex; flex-direction: row;">
         <a class="navbar-brand nav-head left-spaced" href="index.php"><img src="library-PhotoRoom.png-PhotoRoom.png"
@@ -30,18 +31,6 @@ if ($_SESSION['username'] == null)
         <a class="navbar-brand nav-head" href="publishers.php" style="margin-top: 10px">Publishers</a>
         <a class="navbar-brand nav-head" href="languages.php" style="margin-top: 10px">Languages</a>
 
-    </div>
-
-
-    <div class="input-group w-50">
-        <div class="form-outline w-50"style="flex: 1">
-            <input id="search-input" type="search" id="form1" class="form-control form-control-lg" aria-label="Search"
-                   style="background-color: white;"/>
-            <label class="form-label text-black" for="form1">Search</label>
-        </div>
-        <button id="search-button" type="button" class="btn btn-outline-light">
-            <i class="fas fa-search"></i>
-        </button>
     </div>
     <div class="navbar-end justify-content:end;">
         <div class="spaced btn-group">
@@ -64,7 +53,9 @@ if ($_SESSION['username'] == null)
                     <?php if ($status != 'student' and $status != 'teacher') {
                         ?>
                         <ul class="dropdown dropdown-item-text">
-                            <form action="operator/index.php" style="all: unset; cursor: pointer;">
+                            <?php if ($status=='operator') { ?>
+                            <form action="operator/rentals_of_school.php" style="all: unset; cursor: pointer;"><?php } else {?>
+                                <form action="admin/index.php" style="all: unset; cursor: pointer;"> <?php }?>
                                 <button
                                         name="profile"
                                         style="all: unset; cursor: pointer;"
