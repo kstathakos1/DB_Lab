@@ -31,7 +31,7 @@ if ($_SESSION['username'] == null)
                         ?>
                     <?php if ($status=='operator') { ?>
                     <form action="operator/rentals_of_school.php" style="all: unset; cursor: pointer;"><?php } else {?>
-                        <form action="admin/index.php" style="all: unset; cursor: pointer;"> <?php }?>
+                        <form action="../admin/index.php" style="all: unset; cursor: pointer;"> <?php }?>
                             <button
                                     name="profile"
                                     style="all: unset; cursor: pointer;"
