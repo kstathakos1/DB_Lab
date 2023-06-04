@@ -73,7 +73,7 @@ $language = mysqli_fetch_assoc($language);
 <!--                align="flex-start"-->
 <!--                vspace="60"-->
 <!--                hspace="15"-->
-<form id="bookchange" method="POST" action="bookchange.php?ISBN=<?=$bookIsbn?>&AUTHOR=<?=$textareaathor?>&CATEGORY=<?=$textareacategory?>&image=<?=$result1['image']?>" autocomplete="on">
+<form id="bookchange" method="POST" action="bookchange.php?ISBN=<?=$bookIsbn?>&AUTHOR=<?=$textareaathor?>&CATEGORY=<?=$textareacategory?>&image=<?=$result1['image']?>" enctype="multipart/form-data" autocomplete="off">
     <div style="margin-left: 10%;">
         <?php while ($result = $book->fetch_assoc()) { ?>
 
@@ -104,8 +104,9 @@ $language = mysqli_fetch_assoc($language);
                     <textarea name="language" rows="1" cols="40" class="w-50"><?=$language['language']?></textarea>
 
                 </div>
-            </div>
+            </div><input type="file" class="form-control w-25" id="image1" name="image1">
             <div class="align_next">
+
                 <div class='bold'> ISBN :&nbsp;</div>
                 <div style="padding-left:5.4%"><textarea name="ISBN" rows="1" cols="40" class="w-2"
                                                          style="text-align: center;"><?=$result['ISBN']?></textarea>
@@ -123,7 +124,7 @@ $language = mysqli_fetch_assoc($language);
 
     <button
             class="btn btn-outline-success button-position fas fa-save fa-xl "
-            data-bs-auto-close="outside"
+            data-bs-auto-close="outside" type="submit"
     >
         Save Changes
     </button>

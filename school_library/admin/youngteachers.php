@@ -74,7 +74,7 @@ order by count(r.rental_id) desc
                             </tr>
                         <?php } ?>
                         </tbody>
-                    </table>
+                    </table></div>
                 <?php } ?>
             </div>
         </div>

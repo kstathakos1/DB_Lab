@@ -34,11 +34,19 @@ if ($_SESSION['username'] == null)
         <a class="navbar-brand nav-head text-decoration-underline" href="book_category_history.php"
            style="margin-top: 10px">Book Category History</a>
         <a class="navbar-brand nav-head text-decoration-underline" href="youngteachers.php"
-           style="margin-top: 10px">Young Teachers with must rents</a>
-        <a class="navbar-brand nav-head text-decoration-underline" href="users.php"
-           style="margin-top: 10px">Users</a>
-        <a class="navbar-brand nav-head text-decoration-underline" href="average_review.php"
-        style="margin-top: 10px">Average review</a>
+           style="margin-top: 10px">Young Teachers with most rents</a>
+
+        </div>
+        <div class="navbar-header justify-content:start;"
+         style="justify-content:start; display: flex; flex-direction: row; margin-left: 7%;">
+        <a class="navbar-brand nav-head text-decoration-underline" href="obscure-authors.php"
+            style="margin-top: 10px">Obscure Authors</a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="oper-same-number.php"
+            style="margin-top: 10px">Operators with same number</a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="top-three-category-pairs.php"
+            style="margin-top: 10px">Top 3 Category Pairs</a>
+        <a class="navbar-brand nav-head text-decoration-underline" href="authors-five-or-less.php"
+            style="margin-top: 10px">Runner-up Authors</a>
     </div>
     <div class="navbar-end justify-content:end;">
         <div class="spaced btn-group">

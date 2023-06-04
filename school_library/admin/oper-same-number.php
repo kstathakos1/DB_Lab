@@ -16,23 +16,22 @@
     include('../config/database.php');
 
     if (!isset($_SESSION)) session_start();
-    $school_id=$_SESSION['id'];
+    $username = $_SESSION['username'];
+    $integers = null;
+    $strings = null;
     $conn = getDb();
-    $sql="call avarage_review(";
-    $username=$_POST['username'];
-    $category=$_POST['category'];
-    if ($username==null)
-        $sql.="null,";
-    else
-        $sql.="'$username',";
-    if ($category==null)
-        $sql.="null,";
-    else
-        $sql.="'$category',";
-    $sql.="$school_id);";
-    $result=$conn->query($sql);
-echo $sql;
-
+    $school_id = $_SESSION['id'];
+    $result=$conn->query("                 
+                          SELECT number, group_concat(CONCAT( first_name, ' ', last_name ) separator ', ') AS operator_names
+                          FROM (
+                                SELECT count(*) AS number, school_id, YEAR(rental_date) 
+                                FROM rental r INNER JOIN user u ON u.username=r.username 
+                                GROUP by school_id, YEAR(rental_date) 
+                                HAVING number > 20
+                          ) AS rpy
+                          INNER JOIN user u ON u.school_id=rpy.school_id 
+                          AND status='operator' 
+                          GROUP BY number;");
 
     ?>
 </head>
@@ -47,21 +46,7 @@ echo $sql;
             style="margin-left: 47.4%"
         >
 
-        <form id="serach" action="delayed.php?search=" autocomplete="off">
-            <div class="row" style="margin-bottom: 1%">
 
-
-                <div class="col-2">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-dark dropdown-toggle " data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                            options
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-        </form>
 
     </div>
     <div class="container" id="top_bar">
@@ -69,35 +54,31 @@ echo $sql;
             <div class="centered-table">
                 <?php if (mysqli_num_rows($result) == 0) { ?>
                     <div>
-                        <h2>No reviews</h2>
+                        <h2>Nothing found</h2>
                     </div>
                 <?php } else {
                     ?>
                     <table class="table table1" style="margin-top: 0%">
                         <thead class="thead-dark">
-                        <tr><?php if ($username!=null){?>
-                            <th scope="col">username</th> <?php }?>
-                            <?php if ($category!=null){?>
-                                <th scope="col">Category</th> <?php }?>
-                            <th scope="col">Average Review</th>
+                        <tr>
+                            <div style = "font-size: 13px;"> Operators that have rented the same number of books in a year with more than 20 loans</div>
+                        </tr>
+                        </thead>
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Operators</th> 
+                            <th scope="col">Number of Books Rented</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php while ($rental = mysqli_fetch_assoc($result)) { ?>
-                            <tr><?php if ($username!=null){?>
+                        <?php while ($oper_same = mysqli_fetch_assoc($result)) { ?>
+                            <tr>
                                 <td>
-                                    <a style="color: black;"
-                                       href="user.php?user=<?= $username ?>"><?php echo $username ?></a></td>
-                                <?php }
-                                if ($category!=null){ ?>
-                                    <td>
-                                        <a style="color: black;"
-                                           href="../category.php?category=<?= $category ?>"><?php echo $category ?></a>
-                                </td> <?php }?>
-                                <td><?php echo $rental['avarage_review']; ?></td>
-
+                                    <?php echo $oper_same['operator_names']; ?>
                                 </td>
-
+                                <td>
+                                    <?php echo $oper_same['number']?> 
+                                </td>
                             </tr>
                         <?php } ?>
                         </tbody>

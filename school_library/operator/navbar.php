@@ -61,7 +61,7 @@ if ($_SESSION['username'] == null)
                     <?php if ($status != 'student' and $status != 'teacher') {
                         ?>
                         <ul class="dropdown dropdown-item-text">
-                            <form action="index.php" style="all: unset; cursor: pointer;">
+                            <form action="add_book.php" style="all: unset; cursor: pointer;">
                                 <button
                                         name="profile"
                                         style="all: unset; cursor: pointer;"
