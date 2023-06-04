@@ -78,6 +78,7 @@
     <div class="container" id="top_bar">
         <div class="row">
             <div class="centered-table">
+                <?php if (isset($_GET['search'])){?>
                 <?php if (mysqli_num_rows($author) == 0) { ?>
                     <div>
                         <h2>Nothing found</h2>
@@ -87,7 +88,7 @@
                     <table class="table table1" style="margin-top: 0%">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">username</th>
+                            <th scope="col">Authors who write books in the category: <?=$search?></th>
 
                         </tr>
                         </thead>
@@ -102,6 +103,7 @@
                         </tbody>
                     </table>
                 <?php } ?>
+                <?php }?>
             </div>
         </div>
     </div>

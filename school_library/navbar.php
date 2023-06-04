@@ -64,6 +64,18 @@ if ($_SESSION['username'] == null)
                             </form>
                         </ul>
                     <?php } ?>
+                    <?php if ($status=='admin'){
+                        ?>
+                    <ul class="dropdown dropdown-item-text">
+                        <form action="admin/admin_tools.php"style="all: unset; cursor: pointer;">
+                            <button
+                                    name="profile"
+                                    style="all: unset; cursor: pointer;"
+                            > Admin Tools
+                            </button>
+                        </form>
+                    </ul>
+                    <?php }?>
 
                     <form action="logout.php" method="POST" style="all: unset; cursor: pointer;">
                         <button

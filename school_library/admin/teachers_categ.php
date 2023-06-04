@@ -11,7 +11,7 @@
 
     <link rel="shortcut icon" href="../library.jpg" type="image/x-icon">
     <meta charset="UTF-8">
-    <title>My Rents</title>
+    <title>Tools</title>
     <?php
     include('../config/database.php');
 
@@ -77,6 +77,7 @@
     <div class="container" id="top_bar">
         <div class="row">
             <div class="centered-table">
+                <?php if (isset($_GET['search'])){?>
                 <?php if (mysqli_num_rows($teacher) == 0) { ?>
                     <div>
                         <h2>Nothing found</h2>
@@ -100,6 +101,7 @@
                         <?php } ?>
                         </tbody>
                     </table>
+                <?php } ?>
                 <?php } ?>
             </div>
         </div>
