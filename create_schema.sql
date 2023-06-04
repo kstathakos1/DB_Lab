@@ -329,22 +329,21 @@ SELECT concat( rps.school_number,' ', rps.school_type, ' ', rps.city) AS 'School
         AND (month_param IS NULL OR MONTH(r.rental_date) = month_param)
     GROUP BY rps.school_id;
 
-create procedure out_of_date_borrowers(IN search_name varchar(255), IN days_out int, IN school int)
+
+CREATE PROCEDURE out_of_date_borrowers (IN first_name CHAR(255), IN last_name CHAR(255), IN days_out INT, IN school INT)
 BEGIN
-    SELECT CONCAT(u.first_name, ' ', u.last_name) AS 'name', b.title, b.ISBN, r.rental_date,r.rental_id,
-           r.actual_return_date, r.expected_return_date, u.username,
-           DATEDIFF(NOW(), r.expected_return_date) AS delaying_time
+    SELECT CONCAT(u.last_name, ' ', u.first_name) AS 'Borrower, out of date', 
+    DATEDIFF(NOW(), r.expected_return_date) AS 'delaying_time'
     FROM user u
     INNER JOIN rental r ON r.username = u.username
-    INNER JOIN inventory i ON r.inventory_id = i.inventory_id
-    INNER JOIN book b ON i.ISBN = b.ISBN
-    WHERE ((days_out IS NULL AND DATEDIFF(r.actual_return_date, r.expected_return_date) > 0) OR (days_out IS NULL and r.actual_return_date is null AND DATEDIFF(NOW(), r.expected_return_date) > 0)
-           OR (days_out IS NOT NULL  AND DATEDIFF(r.actual_return_date, r.expected_return_date) = days_out)
-           OR (days_out IS NOT NULL and r.actual_return_date is null AND DATEDIFF(NOW(), r.expected_return_date) = days_out))
-      AND ((search_name IS NULL OR search_name = '') OR (u.first_name LIKE CONCAT('%', search_name, '%') OR u.last_name LIKE CONCAT('%', search_name, '%'))
-           OR CONCAT(u.first_name, ' ', u.last_name) like concat('%',search_name,'%'))
-      AND i.school_id = school;
-END;
+    WHERE ((days_out IS NULL AND DATEDIFF(NOW(), r.expected_return_date) > 0)
+           OR (days_out IS NOT NULL AND days_out < 7 AND DATEDIFF(NOW(), r.expected_return_date) >= 7)
+           OR (days_out IS NOT NULL AND days_out >= 7 AND DATEDIFF(NOW(), r.expected_return_date) > days_out))
+    AND (u.first_name = first_name OR first_name IS NULL OR first_name = '')
+    AND (u.last_name = last_name OR last_name IS NULL OR last_name = '')
+    AND (u.school_id=school OR school IS NULL)
+    GROUP BY u.last_name, u.first_name;
+END$$
 
 create procedure out_of_date_borrowers_now(IN search_name varchar(255), IN days_out int, IN school int)
 BEGIN
