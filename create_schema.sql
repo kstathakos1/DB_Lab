@@ -149,7 +149,7 @@ create table review
         primary key,
     username     varchar(255) not null,
     review_score int          not null,
-    review       varchar(255) not null,
+    review       varchar(255) null,
     ISBN         int          null,
     constraint review_book_ISBN_fk
         foreign key (ISBN) references book (ISBN),
@@ -223,24 +223,16 @@ select `lab`.`user`.`username`     AS `username`,
        `lab`.`user`.`status`       AS `status`
 from `lab`.`user`;
 
-create view operator_user_info as
-select `lab`.`user`.`username`     AS `username`,
-       `lab`.`user`.`first_name`   AS `first_name`,
-       `lab`.`user`.`last_name`    AS `last_name`,
-       `lab`.`user`.`address`      AS `address`,
-       `lab`.`user`.`email`        AS `email`,
-       `lab`.`user`.`phone_number` AS `phone_number`,
-       `lab`.`user`.`school_id`    AS `school_id`,
-       `lab`.`user`.`status`       AS `status`
-from `lab`.`user`;
 
-create procedure author_categorization(IN id int)
+
+create procedure author_categorization(IN id char(255))
 SELECT distinct author.authors_first_name, author.authors_last_name
         from author
             inner join book_author ba on author.authors_id = ba.authors_id
             inner join book_category bc on ba.ISBN = bc.ISBN
             inner join category  on bc.category_id = category.category_id
-        where category.category_id = id;
+        where category.category = id;
+
 
 create procedure avarage_review(IN username char(255), IN category char(255), IN school_id int)
 SELECT sum(r.review_score)/count(r.review_id) as avarage_review
@@ -279,6 +271,8 @@ AND (author is null or concat(a.authors_first_name,' ',a.authors_last_name)like 
 AND (cps.school_id=school)
 group by cps.title,cps.ISBN;
 
+
+drop
 create function category_id(arg1 varchar(255)) returns int
     deterministic
 begin
@@ -289,6 +283,7 @@ select  category_id into id
     return id;
 end;
 
+drop procedure if exists find_my_books;
 create procedure find_my_books(IN p_username char(255))
 BEGIN
     SELECT b.title,b.ISBN,r.actual_return_date,r.expected_return_date,r.rental_date
@@ -299,6 +294,8 @@ BEGIN
     WHERE u.username=p_username;
 END;
 
+
+drop function if exists inventory_not_free_copies;
 create function inventory_not_free_copies(ISBN int, school_id int) returns int
 begin
     declare av int;
@@ -310,6 +307,7 @@ group by i.school_id,i.ISBN;
         return av;
 end;
 
+drop function if exists language_id;
 create function language_id(arg1 varchar(255)) returns int
     deterministic
 begin
@@ -320,31 +318,36 @@ select  language_id into id
     return id;
 end;
 
+
+drop procedure if exists
 create procedure list_loans_by_school(IN year_param int, IN month_param int)
-SELECT concat( rps.school_number,' ', rps.school_type, ' ', rps.city) AS 'School Name',
-           COUNT(r.rental_id) AS 'number of loans'
+SELECT concat( rps.school_number,' ', rps.school_type, ' ', rps.city) AS name,
+           COUNT(r.rental_id) AS number
     FROM RENTALS_PER_SCHOOL rps
     INNER JOIN rental r ON rps.rental_id = r.rental_id
     WHERE (year_param IS NULL OR YEAR(r.rental_date) = year_param)
         AND (month_param IS NULL OR MONTH(r.rental_date) = month_param)
     GROUP BY rps.school_id;
 
-
-CREATE PROCEDURE out_of_date_borrowers (IN first_name CHAR(255), IN last_name CHAR(255), IN days_out INT, IN school INT)
+drop procedure if exists out_of_date_borrowers;
+create procedure out_of_date_borrowers(IN search_name varchar(255), IN days_out int, IN school int)
 BEGIN
-    SELECT CONCAT(u.last_name, ' ', u.first_name) AS 'Borrower, out of date', 
-    DATEDIFF(NOW(), r.expected_return_date) AS 'delaying_time'
+    SELECT CONCAT(u.first_name, ' ', u.last_name) AS 'name', b.title, b.ISBN, r.rental_date,r.rental_id,
+           r.actual_return_date, r.expected_return_date, u.username,
+           DATEDIFF(NOW(), r.expected_return_date) AS 'delaying_time'
     FROM user u
     INNER JOIN rental r ON r.username = u.username
+    INNER JOIN inventory i ON r.inventory_id = i.inventory_id
+    INNER JOIN book b ON i.ISBN = b.ISBN
     WHERE ((days_out IS NULL AND DATEDIFF(NOW(), r.expected_return_date) > 0)
            OR (days_out IS NOT NULL AND days_out < 7 AND DATEDIFF(NOW(), r.expected_return_date) >= 7)
            OR (days_out IS NOT NULL AND days_out >= 7 AND DATEDIFF(NOW(), r.expected_return_date) > days_out))
-    AND (u.first_name = first_name OR first_name IS NULL OR first_name = '')
-    AND (u.last_name = last_name OR last_name IS NULL OR last_name = '')
-    AND (u.school_id=school OR school IS NULL)
-    GROUP BY u.last_name, u.first_name;
-END$$
+      AND ((search_name IS NULL OR search_name = '') OR (u.first_name LIKE CONCAT('%', search_name, '%') OR u.last_name LIKE CONCAT('%', search_name, '%'))
+           OR CONCAT(u.first_name, ' ', u.last_name) like concat('%',search_name,'%'))
+      AND i.school_id = school;
+END;
 
+drop procedure if exists out_of_date_borrowers_now;
 create procedure out_of_date_borrowers_now(IN search_name varchar(255), IN days_out int, IN school int)
 BEGIN
 
@@ -364,6 +367,9 @@ BEGIN
 
 END;
 
+
+
+drop function if exists reserved_copies;
 create function reserved_copies(ISBN int, school_id int) returns int
 begin
     declare av int;
@@ -373,9 +379,8 @@ begin
     where i.ISBN=ISBN and i.school_id=school_id and current_date<r.expiration_date
     group by i.ISBN;
     return av;
-
 end;
-
+drop function if exists routine_name
 create function routine_name(arg1 varchar(255)) returns int
     deterministic
 begin
@@ -386,6 +391,9 @@ begin
     return au;
     end;
 
+
+
+drop function if exists school_name;
 create function school_name(arg1 varchar(255)) returns int
     deterministic
 begin
@@ -396,6 +404,9 @@ select school_id into sn
     return sn;
 end;
 
+
+
+drop procedure if exists teacher_book_category_loan;
 create procedure teacher_book_category_loan(IN arg1 int)
 select distinct concat(first_name,' ',last_name) AS 'Name'
         from user u

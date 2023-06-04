@@ -10,7 +10,7 @@ begin
     inner join category c on bc.category_id = c.category_id
     where c.category=arg1 and (u.status='teacher' or u.status='operator');
 
-end$$
+end;
 
 
 create
