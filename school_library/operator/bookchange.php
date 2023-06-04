@@ -9,6 +9,27 @@ $new_isbn = $_POST['ISBN'];
 echo $new_isbn . "<br>";
 $summary = $_POST['summary'];
 $numpage = $_POST['numpage'];
+$image=$_FILES['image1'];
+$full_path = $image['tmp_name'];
+require 'vendor/autoload.php';
+
+use Cloudinary\Configuration\Configuration;
+use Cloudinary\Api\Upload\UploadApi;
+
+Configuration::instance([
+    'cloud' => [
+        'cloud_name' => 'dxjqxk3v7',
+        'api_key' => '357863356125793',
+        'api_secret' => '6jFQIC1M2HbpK2eEH9_dRy36wFE'
+    ],
+    'url' => [
+        'secure' => true
+    ]
+]);
+
+$data = (new UploadApi())->upload($full_path); // Remove the single quotes around $full_path
+$image_url= $data['secure_url'];
+print_r($image);
 $new_authors = $_POST['author'];
 $new_authors_array = explode(", ", $new_authors);
 $language = $_POST['language'];
@@ -16,7 +37,6 @@ $new_categories = $_POST['category'];
 $new_category_array = explode(", ", $new_categories);
 $publisher = $_POST['publisher'];
 $old_isbn = $_GET['ISBN'];
-$image = $_GET['image'];
 $old_authors = $_GET['AUTHOR'];
 $old_category = $_GET['CATEGORY'];
 $old_authors_array = explode(", ", $old_authors);
@@ -31,7 +51,7 @@ if ($row_new_language['li'] == null) {
 if ($old_isbn == $new_isbn) {
     {
         $sql = "update book
-    set title='$title',summary='$summary',language_id=(select language_id('$language') as li), publisher='$publisher',page=$numpage
+    set title='$title',summary='$summary',language_id=(select language_id('$language') as li), publisher='$publisher',page=$numpage,image='$image_url'
     where ISBN=$new_isbn ;";
         $sql = $conn->query($sql);
     }
@@ -147,7 +167,7 @@ if ($old_isbn == $new_isbn) {
     $sql_lanquage = $conn->query("select language_id('$language') as id ; ");
     $row_new_language = mysqli_fetch_assoc($sql_lanquage);
     $language_id = $row_new_language['id'];
-    $sql_book_insert = $conn->query("insert into book (ISBN,title,image,publisher,page,summary,language_id) VALUES ($new_isbn,'$title','$image','$publisher',$numpage ,'$summary',$language_id) ; ");
+    $sql_book_insert = $conn->query("insert into book (ISBN,title,image,publisher,page,summary,language_id) VALUES ($new_isbn,'$title','$image_url','$publisher',$numpage ,'$summary',$language_id) ; ");
     $sql_inventory_update = $conn->query("update inventory set ISBN=$new_isbn where school_id=$school_id and ISBN=$old_isbn ;");
     foreach ($new_authors_array as $new_author) {
         echo $new_author;

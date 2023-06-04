@@ -35,10 +35,7 @@ if ($_SESSION['username'] == null)
            style="margin-top: 10px">Book Category History</a>
         <a class="navbar-brand nav-head text-decoration-underline" href="youngteachers.php"
            style="margin-top: 10px">Young Teachers with most rents</a>
-        <a class="navbar-brand nav-head text-decoration-underline" href="users.php"
-           style="margin-top: 10px">Users</a>
-        <a class="navbar-brand nav-head text-decoration-underline" href="average_review.php"
-            style="margin-top: 10px">Average review</a>
+
         </div>
         <div class="navbar-header justify-content:start;"
          style="justify-content:start; display: flex; flex-direction: row; margin-left: 7%;">

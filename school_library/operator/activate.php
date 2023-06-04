@@ -6,5 +6,5 @@ $location=$_GET['location'];
 $conn=getDb();
 $deactivate=$conn->query("update user set activity='activated' where username='$username'");
 unset($_GET);
-die($conn);
+
 header("Location: $location");

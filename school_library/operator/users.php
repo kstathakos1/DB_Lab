@@ -22,7 +22,7 @@
     $result=$conn->query("SELECT concat(first_name,' ',last_name)as name,u.username,email ,activity,status,count(rental_id) as rents
 FROM user u
 left join rental r on u.username = r.username
-where school_id=$school_id
+where school_id=$school_id and (u.status='student' or u.status='teacher')
 group by u.username;");
 
 
