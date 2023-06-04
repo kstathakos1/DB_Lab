@@ -33,7 +33,8 @@ if ($_SESSION['username'] == null)
         </a>
         <a class="navbar-brand nav-head text-decoration-underline" href="users.php"
            style="margin-top: 10px">Users</a>
-
+        <a class="navbar-brand nav-head text-decoration-underline" href="add_school.php"
+           style="margin-top: 10px">Add School</a>
     </div>
     <div class="navbar-end justify-content:end;">
         <div class="spaced btn-group">

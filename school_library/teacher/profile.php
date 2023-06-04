@@ -161,37 +161,7 @@ $active_reservations = $conn->query("SELECT b.title FROM book b
                     </button></form>
 
                     
-                    <div class="mb-2" style=" display: flex;">
-                        <label style="width: 30%;align-items: center; vertical-align: center ;margin-top: 10px">Active Rentals:</label>
-                        <label
-                                type="text"
-                                id="active_rentals"
-                                class="form-control form-control-lg align-self-center"
-                                style="width: 70%;"
-                        >
-                        <?php
-                            while ($row = $active_rentals->fetch_assoc()) {
-                                echo $row['title'] . '<br>';
-                              }
-                        ?>
 
-                    </div>
-
-                    <div class="mb-2" style=" display: flex;">
-                        <label style="width: 30%;align-items: center; vertical-align: center ;margin-top: 10px">Past Rentals:</label>
-                        <label
-                                type="text"
-                                id="active_rentals"
-                                class="form-control form-control-lg align-self-center"
-                                style="width: 70%;"
-                        >
-                        <?php
-                            while ($row = $past_rentals->fetch_assoc()) {
-                                echo $row['title'] . '<br>';
-                              }
-                        ?>
-
-                    </div>
 
                     <div class="mb-2" style=" display: flex;">
                         <label style="width: 30%;align-items: center; vertical-align: center ;margin-top: 10px">Active Reservations:</label>
