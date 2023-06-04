@@ -13,6 +13,15 @@ where school_id=$id ;");
 $user = mysqli_fetch_array($result);
 $school=mysqli_fetch_array($result1);
 
+$active_rentals = $conn->query("SELECT b.title FROM book b
+                         INNER JOIN inventory i ON i.ISBN = b.ISBN
+                         INNER JOIN rental r ON r.inventory_id = i.inventory_id
+                         WHERE r.username= '$username' AND r.actual_return_date IS NULL;");
+
+$past_rentals = $conn->query("SELECT b.title FROM book b
+                         INNER JOIN inventory i ON i.ISBN = b.ISBN
+                         INNER JOIN rental r ON r.inventory_id = i.inventory_id
+                         WHERE r.username= '$username' AND r.actual_return_date IS NOT NULL;");
 
 ?>
 
@@ -142,7 +151,37 @@ $school=mysqli_fetch_array($result1);
                     </div>
 
 
+                    <div class="mb-2" style=" display: flex;">
+                        <label style="width: 30%;align-items: center; vertical-align: center ;margin-top: 10px">Active Rentals:</label>
+                        <label
+                                type="text"
+                                id="active_rentals"
+                                class="form-control form-control-lg align-self-center"
+                                style="width: 70%;"
+                        >
+                        <?php
+                            while ($row = $active_rentals->fetch_assoc()) {
+                                echo $row['title'] . '<br>';
+                              }
+                        ?>
 
+                    </div>
+
+                    <div class="mb-2" style=" display: flex;">
+                        <label style="width: 30%;align-items: center; vertical-align: center ;margin-top: 10px">Past Rentals:</label>
+                        <label
+                                type="text"
+                                id="active_rentals"
+                                class="form-control form-control-lg align-self-center"
+                                style="width: 70%;"
+                        >
+                        <?php
+                            while ($row = $past_rentals->fetch_assoc()) {
+                                echo $row['title'] . '<br>';
+                              }
+                        ?>
+
+                    </div>
             </div>
 
         </div>
