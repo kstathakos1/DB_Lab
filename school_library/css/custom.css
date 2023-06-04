@@ -283,3 +283,9 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     display: none;
 }
+
+.button-position-secondary {
+    position:absolute;
+    bottom: 5%;
+    right:20%;
+}
